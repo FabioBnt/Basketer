@@ -1,5 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+/*? ALL */
+body {
+    background: #1c56dee7; /* fallback for old browsers */
+    background: rgba(30, 81, 209, 0.911);
+    background: linear-gradient(90deg, rgb(85, 100, 177) 0%, rgb(58, 84, 187) 50%);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*? INDEX PAGE */
 .login-page {
     width: 360px;
     padding: 8% 0 0;
@@ -63,11 +74,8 @@
     text-align: center;
 }
 
-body {
-    background: #1c56dee7; /* fallback for old browsers */
-    background: rgba(30, 81, 209, 0.911);
-    background: linear-gradient(90deg, rgb(85, 100, 177) 0%, rgb(58, 84, 187) 50%);
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.incorrectIDs{
+    text-align: center;
+    color: red;
+    font-weight: bold;
 }
