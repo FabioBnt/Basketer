@@ -53,11 +53,19 @@ class DataBase
         $res = $stmt->execute($values);
     }
 
-    public function modifyCol(string $table, string $nameCol, $value): void
+    public function modifyCol(string $table, string $idName, $idValue, string $nameCol, $value): bool
     {
         $pdo = $this->getPDO();
-        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol . ' = ' . $value);
+        $stmt = null;
+        if(is_string($idValue)){
+            $idValue = "'$idValue'";
+        }
+        if(is_string($value)){
+            $value = "'$value'";
+        }
+        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol .' = '. $value . ' where'.$idName.' = '. $idValue);
         $res = $stmt->execute($value);
+        return $res;
     }
 
     private static $_class = __CLASS__;
