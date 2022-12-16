@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests;
+namespace Tests\php\Tests;
 
-use DataBase;
 use PHPUnit\Framework\TestCase;
 
 class DataBaseTest extends TestCase
