@@ -40,7 +40,7 @@ class DataBase
         return $this->linkpdo;
     }
 
-    public function select(string $cols, string $tables, string $conditions = "")
+    public function select(string $cols, string $tables, string $conditions = ""): bool|array
     {
         $pdo = $this->getPDO();
         return $pdo->query("select " . $cols . " from " . $tables . " " . $conditions)->fetchAll();
