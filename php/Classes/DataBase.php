@@ -7,14 +7,15 @@ class DataBase
     private string $server = 'sql926.main-hosting.eu';
     private string $login = 'u563109936_fabisma';
     private string $pass = 'bgLx7CqfjtNe93gG';
-    private string $db = 'u563109936_Basket_FI';
+    private static string $db = 'u563109936_Basket_FI';
     private PDO $linkpdo;
 
     // Start a session if not already started
     private function __construct()
     {
+        $db = self::$db;
         try {
-            $this->linkpdo = new PDO("mysql:host=$this->server;dbname=$this->db", $this->login, $this->pass);
+            $this->linkpdo = new PDO("mysql:host=$this->server;dbname=$db", $this->login, $this->pass);
         } catch (Exception $e) {
             die('Error : ' . $e->getMessage());
         }
@@ -39,7 +40,7 @@ class DataBase
         return $this->linkpdo;
     }
 
-    public function select(string $cols, string $tables, string $conditions = ""): bool|array
+    public function select(string $cols, string $tables, string $conditions = "")
     {
         $pdo = $this->getPDO();
         return $pdo->query("select " . $cols . " from " . $tables . " " . $conditions)->fetchAll();

@@ -1,13 +1,18 @@
 <?php
-    $incorrect = false;
-    if(isset($_POST['submit'])){
-        $username = $_POST['user'];
-        $password = $_POST['pwd'];
-        if ($username !== 'admin' || $password !== 'iutinfo') {
-            $incorrect = true;
-        } else {
-            header('Location:./home.html');
-            exit;
+include_once './php/Classes/DataBase.php';
+$mysql = DataBase::getInstance();
+$result = $mysql->select('');
+
+
+$incorrect = false;
+if (isset($_POST['submit'])) {
+    $username = $_POST['user'];
+    $password = $_POST['pwd'];
+    if ($username !== 'admin' || $password !== 'iutinfo') {
+        $incorrect = true;
+    } else {
+        header('Location:./home.html');
+        exit;
         }
     }
 ?>
