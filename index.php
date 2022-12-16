@@ -3,9 +3,9 @@
     if(isset($_POST['submit'])){
         $username = $_POST['user'];
         $password = $_POST['pwd'];
-        if($username != 'admin' || $password != 'iutinfo'){
+        if ($username !== 'admin' || $password !== 'iutinfo') {
             $incorrect = true;
-        }else{
+        } else {
             header('Location:./home.html');
             exit;
         }
