@@ -4,11 +4,11 @@ class DataBase
 {
     private static $instance = null;
     ///Connexion au serveur Mysql
-    private $server = 'sql926.main-hosting.eu';
-    private $login = 'u563109936_fabisma';
-    private $pass = 'bgLx7CqfjtNe93gG';
-    private $db = 'u563109936_Basket_FI';
-    private $linkpdo;
+    private string $server = 'sql926.main-hosting.eu';
+    private string $login = 'u563109936_fabisma';
+    private string $pass = 'bgLx7CqfjtNe93gG';
+    private string $db = 'u563109936_Basket_FI';
+    private PDO $linkpdo;
 
     // Start a session if not already started
     private function __construct()
@@ -23,7 +23,7 @@ class DataBase
     public static function getInstance()
     {
         session_start();
-        if (false == isset($_SESSION[self::$_class])) {
+        if (!isset($_SESSION[self::$_class])) {
             $class = self::$db;
             $_SESSION[self::$db] = new $class;
         }
@@ -34,28 +34,25 @@ class DataBase
     {
     }
 
-    public function getPDO()
+    public function getPDO(): PDO
     {
         return $this->linkpdo;
     }
 
-    public function select(string $cols, string $tables, string $conditions = "")
+    public function select(string $cols, string $tables, string $conditions = ""): bool|array
     {
         $pdo = $this->getPDO();
-        $stmt = $pdo->prepare("select " . $cols . " from " . $tables . " " . $conditions);
-        $stmt->execute();
-        $data = $stmt->fetchAll();
-        return $data;
+        return $pdo->query("select " . $cols . " from " . $tables . " " . $conditions)->fetchAll();
     }
 
-    public function insert(string $table, int $num, array $values)
+    public function insert(string $table, int $num, array $values): void
     {
         $pdo = $this->getPDO();
         $stmt = $pdo->prepare("INSERT INTO " . $table . " VALUES (" . str_repeat("?, ", $num - 1) . '?)');
         $res = $stmt->execute($values);
     }
 
-    public function modifyCol(string $table, string $nameCol, $value)
+    public function modifyCol(string $table, string $nameCol, $value): void
     {
         $pdo = $this->getPDO();
         $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol . ' = ' . $value);
