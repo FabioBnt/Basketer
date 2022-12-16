@@ -58,7 +58,7 @@ class players
     {
         $mysql = DataBase::getInstance();
         $values = array($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status);
-        $mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', 8, $values);
+        $mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', $values);
     }
     public function modifyPlayer(){
         

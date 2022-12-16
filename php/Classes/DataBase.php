@@ -46,10 +46,10 @@ class DataBase
         return $pdo->query("select " . $cols . " from " . $tables . " " . $conditions)->fetchAll();
     }
 
-    public function insert(string $table, int $num, array $values): void
+    public function insert(string $table, array $values): void
     {
         $pdo = $this->getPDO();
-        $stmt = $pdo->prepare("INSERT INTO " . $table . " VALUES (" . str_repeat("?, ", $num - 1) . '?)');
+        $stmt = $pdo->prepare("INSERT INTO " . $table . " VALUES (" . str_repeat("?, ", count($values) - 1) . '?)');
         $res = $stmt->execute($values);
     }
 
