@@ -62,12 +62,20 @@ class Players
         $mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', $values);
     }
 
-    public function modifyPlayer()
+    public function modifyPlayer($id, $nameCol, $value): void
     {
-
+        $mysql = DataBase::getInstance();
+        try {
+            $mysql->modifyCol('Joueur', 'NumLicense', $id, $nameCol, $value);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
-
+    public function deletePlayer($id): void
+    {
+        $mysql = DataBase::getInstance();
+        $mysql->deleteCol('Joueur', $id, 'NumLicense');
+    }
 }
 
-?>

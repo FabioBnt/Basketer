@@ -1,5 +1,4 @@
 <?php
-
 class DataBase
 {
     private static $instance = null;
@@ -7,29 +6,27 @@ class DataBase
     private string $server = 'sql926.main-hosting.eu';
     private string $login = 'u563109936_fabisma';
     private string $pass = 'bgLx7CqfjtNe93gG';
-    private static string $db = 'u563109936_Basket_FI';
+    private string $db = 'u563109936_Basket_FI';
     private PDO $linkpdo;
 
     // Start a session if not already started
     private function __construct()
     {
-        $db = self::$db;
         try {
-            $this->linkpdo = new PDO("mysql:host=$this->server;dbname=$db", $this->login, $this->pass);
+            $this->linkpdo = new PDO("mysql:host=$this->server;dbname=$this->db", $this->login, $this->pass);
         } catch (Exception $e) {
             die('Error : ' . $e->getMessage());
         }
     }
 
-    public static function getInstance()
+    public static function getInstance(): ?DataBase
     {
-        session_start();
-        if (!isset($_SESSION[self::$_class])) {
-            $class = self::$db;
-            $_SESSION[self::$db] = new $class;
+        if (self::$instance === null) {
+            self::$instance = new DataBase();
         }
-        return $_SESSION[self::$db];
+        return self::$instance;
     }
+
 
     public static function _destroy()
     {
@@ -57,16 +54,33 @@ class DataBase
     {
         $pdo = $this->getPDO();
         $stmt = null;
-        if(is_string($idValue)){
+        if (is_string($idValue)) {
             $idValue = "'$idValue'";
         }
-        if(is_string($value)){
+        if (is_string($value)) {
             $value = "'$value'";
         }
-        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol .' = '. $value . ' where'.$idName.' = '. $idValue);
-        $res = $stmt->execute($value);
-        return $res;
+        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol . ' = ' . $value . ' where' . $idName . ' = ' . $idValue);
+        return $stmt->execute($value);
     }
 
-    private static $_class = __CLASS__;
+    #TODO: Add delete function
+    public function deleteCol(string $table, string $idValue, string $idName): void
+    {
+        $pdo = $this->getPDO();
+        $pdo->query('DELETE FROM ' . $table . ' WHERE ' . $idName . '=' . $idValue);
+    }
 }
+/*$mysql = DataBase::getInstance();
+$result = $mysql->select('*','Joueur');
+foreach ($result as $row){
+    echo $row['NumLicence'];
+    echo $row['Nom'];
+    echo $row['Prenom'];
+    echo $row['Photo'];
+    echo $row['DateNaiss'];
+    echo $row['Taille'];
+    echo $row['Poids'];
+    echo $row['PostePref'];
+    echo $row['Statut'];
+}*/
