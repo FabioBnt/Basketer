@@ -3,51 +3,51 @@ include './DataBase.php';
 
 class Players
 {
-    public function selectPlayers($number = '', $familyName = '', $name = '', $photo = '', $birthDate = '', $size = 0, $weight = 0, $prefPos = '', $status = '')
+    public function selectPlayers($number = '', $familyName = '', $name = '', $photo = '', $birthDate = '', $size = '', $weight = '', $prefPos = '', $status = '')
     {
         $numCols = 0;
-        $conds = 'where ';
+        $conds = "where ";
         if ($number !== '') {
-            $conds . +"NumLicence = '$number' AND ";
+            $conds.="NumLicence = '$number' AND ";
             $numCols++;
         }
         if ($familyName !== '') {
-            $conds . +"Nom = '$familyName' AND ";
+            $conds.="Nom = '$familyName' AND ";
             $numCols++;
         }
         if ($name !== '') {
-            $conds . +"Prenom = '$name' AND ";
+            $conds.="Prenom = '$name' AND ";
             $numCols++;
         }
         if ($photo !== '') {
-            $conds . +"Photo = '$photo' AND ";
+            $conds.="Photo = '$photo' AND ";
             $numCols++;
         }
         if ($birthDate !== '') {
-            $conds . +"DateNaiss = '$birthDate' AND ";
+            $conds.="DateNaiss = '$birthDate' AND ";
             $numCols++;
         }
-        if ($size !== 0) {
-            $conds . +"Taille = '$size' AND ";
+        if ($size !== '') {
+            $conds.="Taille = '$size' AND ";
             $numCols++;
         }
-        if ($weight !== 0) {
-            $conds . +"Poids = '$weight' AND ";
+        if ($weight !== '') {
+            $conds.="Poids = '$weight' AND ";
             $numCols++;
         }
         if ($prefPos !== '') {
-            $conds . +"Taille = '$size' AND ";
+            $conds.="Taille = '$size' AND ";
             $numCols++;
         }
         if ($status !== '') {
-            $conds . +"Status = '$status'    ";
+            $conds.="Statut = '$status' AND ";
             $numCols++;
         }
         $conds = substr($conds, 0, -4);
-
+        //echo '</br>'.$numCols.''.$conds.'</br>';
         $mysql = DataBase::getInstance();
         $data = array();
-        if ($numCols !== 0) {
+        if ($numCols > 0) {
             $data = $mysql->select('*', 'Joueur', $conds);
         } else {
             $data = $mysql->select('*', 'Joueur');
@@ -57,6 +57,12 @@ class Players
 
     public function insertPlayer($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status)
     {
+        if(count($this->selectPlayers('', $familyName, $name, '', $birthDate)) > 0){
+            throw new Exception('duplicate detected : it seems that this player is already in our database');
+        }
+        if(count($this->selectPlayers($number)) > 0){
+            throw new Exception('duplicate detected : player number already exist');
+        }
         $mysql = DataBase::getInstance();
         $values = array($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status);
         $mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', $values);
@@ -66,7 +72,7 @@ class Players
     {
         $mysql = DataBase::getInstance();
         try {
-            $mysql->modifyCol('Joueur', 'NumLicense', $id, $nameCol, $value);
+            $mysql->modifyCol('Joueur', 'NumLicence', $id, $nameCol, $value);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -75,7 +81,18 @@ class Players
     public function deletePlayer($id): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('Joueur', $id, 'NumLicense');
+        $mysql->deleteCol('Joueur','NumLicence', $id);
     }
 }
+/*
+$player = new Players();
+$player->deletePlayer('111111111');
+print_r($player->selectPlayers());
+//echo 'ok';
+$player->insertPlayer('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m19', '104kg', 'Ailier fort', 'Actif');
+echo $player->modifyPlayer('111111111', 'Photo', '');
+print_r($player->selectPlayers('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m19', '104kg', 'Ailier fort', 'Actif'));
+*/
 
+
+?>

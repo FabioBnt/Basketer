@@ -27,30 +27,32 @@ class DataBase
         return self::$instance;
     }
 
-
-    public static function _destroy()
-    {
-    }
-
     public function getPDO(): PDO
     {
         return $this->linkpdo;
     }
-
-    public function select(string $cols, string $tables, string $conditions = ""): bool|array
+    // selects the $cols of the $tables at the $conditions ... $conditions are "" by default
+    // the condition should be a string under the form "WHERE table.col1 = 12 AND table.col2 = 'string'"
+    // example $mysql->select('*','Joueur', 'where NumLicence = "123456789"');
+    public function select(string $cols, string $tables, string $conditions = "")
     {
         $pdo = $this->getPDO();
+        //echo "select " . $cols . " from " . $tables . " " . $conditions. '</br>';
         return $pdo->query("select " . $cols . " from " . $tables . " " . $conditions)->fetchAll();
     }
-
-    public function insert(string $table, array $values): void
+    // insert array $values in a $table
+    // ex : $mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', 
+    //array('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m19', '104kg', 'Ailier fort', 'Actif'));
+    public function insert(string $table, array $values)
     {
         $pdo = $this->getPDO();
         $stmt = $pdo->prepare("INSERT INTO " . $table . " VALUES (" . str_repeat("?, ", count($values) - 1) . '?)');
-        $res = $stmt->execute($values);
+        return $stmt->execute($values);
     }
 
-    public function modifyCol(string $table, string $idName, $idValue, string $nameCol, $value): bool
+    // modifies a $col with the new $value in which the $idName (the name of id of the table) 
+    // and the value of the id in the wanted line is $idValue
+    public function modifyCol(string $table, string $idName, $idValue, string $col, $value): bool
     {
         $pdo = $this->getPDO();
         $stmt = null;
@@ -60,18 +62,24 @@ class DataBase
         if (is_string($value)) {
             $value = "'$value'";
         }
-        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $nameCol . ' = ' . $value . ' where' . $idName . ' = ' . $idValue);
-        return $stmt->execute($value);
+        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $col . ' = ' . $value . ' WHERE ' . $idName . ' = ' . $idValue);
+        return $stmt->execute();
     }
 
-    #TODO: Add delete function
-    public function deleteCol(string $table, string $idValue, string $idName): void
+    // delete a col of a $table with col $idName that has the $value
+    // example $mysql->deleteCol('Joueur','NumLicence', '111111111');
+    public function deleteCol(string $table, string $idName, string $idValue): void
     {
         $pdo = $this->getPDO();
+        if (is_string($idValue)) {
+            $idValue = "'$idValue'";
+        }
         $pdo->query('DELETE FROM ' . $table . ' WHERE ' . $idName . '=' . $idValue);
     }
 }
-/*$mysql = DataBase::getInstance();
+/*
+$mysql = DataBase::getInstance();
+$mysql->insert('`Joueur` (`NumLicence`, `Nom`, `Prenom`, `Photo`, `DateNaiss`, `Taille`, `Poids`, `PostePref`, `Statut`)', array('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m19', '104kg', 'Ailier fort', 'Actif'));
 $result = $mysql->select('*','Joueur');
 foreach ($result as $row){
     echo $row['NumLicence'];
@@ -83,4 +91,7 @@ foreach ($result as $row){
     echo $row['Poids'];
     echo $row['PostePref'];
     echo $row['Statut'];
-}*/
+    echo "</br>";
+}
+*/
+?>
