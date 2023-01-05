@@ -52,7 +52,7 @@ class DataBase
 
     // modifies a $col with the new $value in which the $idName (the name of id of the table) 
     // and the value of the id in the wanted line is $idValue
-    public function modifyCol(string $table, string $idName, $idValue, string $col, $value): bool
+    public function modifyCol(string $table, string $idName, $idValue, string $col, $value, string $idName2 ='', $idValue2=''): bool
     {
         $pdo = $this->getPDO();
         $stmt = null;
@@ -62,19 +62,40 @@ class DataBase
         if (is_string($value)) {
             $value = "'$value'";
         }
-        $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $col . ' = ' . $value . ' WHERE ' . $idName . ' = ' . $idValue);
+        if($idName2 === ''  || $idValue2 === ''){
+            $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $col . ' = ' . $value . ' WHERE ' . $idName . ' = ' . $idValue);
+        }else{
+            if (is_string($idValue2)) {
+                $idValue2 = "'$idValue2'";
+            }
+            $stmt = $pdo->prepare('UPDATE ' . $table . ' SET ' . $col . ' = ' . $value . ' WHERE ' . $idName . ' = ' . $idValue. ' AND '. $idName2 . ' = ' . $idValue2);
+        }
         return $stmt->execute();
     }
 
     // delete a col of a $table with col $idName that has the $value
     // example $mysql->deleteCol('Joueur','NumLicence', '111111111');
-    public function deleteCol(string $table, string $idName, string $idValue): void
+    public function deleteCol(string $table, string $idName, string $idValue, string $idName2 = '', string $idValue2 = ''): void
     {
         $pdo = $this->getPDO();
         if (is_string($idValue)) {
             $idValue = "'$idValue'";
         }
-        $pdo->query('DELETE FROM ' . $table . ' WHERE ' . $idName . '=' . $idValue);
+        if($idName2 === ''  || $idValue2 === ''){
+            if (is_string($idValue2)) {
+                $idValue2 = "'$idValue2'";
+            }
+            $pdo->query('DELETE FROM ' . $table . ' WHERE ' . $idName . '=' . $idValue);
+        }else{
+            $pdo->query('DELETE FROM ' . $table . ' WHERE ' . $idName . '=' . $idValue. ' AND '. $idName2 . ' = ' . $idValue2);
+        }
+    }
+    
+    // count the number of col of a table or a part of a table in using $conditions
+    // ex : echo $mysql->countCols('Joueur');
+    public function countCols(string $table, string $conditions=''){
+        $pdo = $this->getPDO();
+        return $pdo->query("select count(*) as total from " . $table . " " . $conditions)->fetchAll()[0]['total'];
     }
 }
 /*
