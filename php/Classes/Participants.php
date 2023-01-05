@@ -3,7 +3,7 @@ include './DataBase.php';
 
 class Participants
 {
-    public function selectParticipants($idMatch = 0, $number = '', $role = '', $performance = '', $comments = '')
+    public function selectParticipants($idMatch = 0, $number = '', $role = '', $performance = 0, $comments = '')
     {
         $numCols = 0;
         $conds = "where ";
@@ -19,8 +19,8 @@ class Participants
             $conds.="Role = '$role' AND ";
             $numCols++;
         }
-        if ($performance !== '') {
-            $conds.="Performance = '$performance' AND ";
+        if ($performance !== 0) {
+            $conds.="Performance = $performance AND ";
             $numCols++;
         }
         if ($comments !== '') {
