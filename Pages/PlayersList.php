@@ -1,3 +1,10 @@
+<?php
+    include_once "../php/Classes/DataBase.php";
+    include_once "../php/Classes/Players.php";
+    $player = new Players();
+    $players = $player->selectPlayers();
+    //print_r($players);
+?>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -5,15 +12,33 @@
     <title>Liste Joueurs</title>
 </head>
 <body class="list">
-<h1>player Models</h1>
+<h1>Joueurs</h1>
 <table>
     <tr class="heading">
-        <th>車体名</th>
-        <th>価格</th>
-        <th>燃費</th>
-        <th>乗車定員</th>
-        <th>排気量</th>
+        <th>Joueur</th>
+        <th>Numero Licence</th>
+        <th>Date de naissance</th>
+        <th>Taille</th>
+        <th>Poids</th>
+        <th>Poste preferé</th>
+        <th>Statut</th>
     </tr>
+    <?php
+    foreach($players as $player){
+        echo '<tr>';
+            echo '<td class="player-name">';
+                //echo "<img src='".$player['Photo']."' alt='photo ".$player['Nom'].">";
+                echo $player['Nom'].' '.$player['Prenom'];
+            echo '</td>';
+            echo '<td>'.$player['NumLicence'].'</td>';
+            echo '<td>'.$player['DateNaiss'].'</td>';
+            echo '<td>'.$player['Taille'].'</td>';
+            echo '<td>'.$player['Poids'].'</td>';
+            echo '<td>'.$player['PostePref'].'</td>';
+            echo '<td>'.$player['Statut'].'</td>';
+        echo '</tr>';
+    }
+    ?>
     <tr>
         <td class="player-name">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car1.png" alt="">

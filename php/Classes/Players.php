@@ -1,5 +1,5 @@
 <?php
-include './DataBase.php';
+//include_once './DataBase.php';
 
 class Players
 {
