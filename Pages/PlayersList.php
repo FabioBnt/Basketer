@@ -12,7 +12,7 @@
     <title>Liste Joueurs</title>
 </head>
 <body class="list">
-<h1>Joueurs</h1>
+<h1>Liste des joueurs de l'équipe</h1>
 <table>
     <tr class="heading">
         <th>Joueur</th>
