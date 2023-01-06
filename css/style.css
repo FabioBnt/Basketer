@@ -74,7 +74,7 @@
     text-align: center;
 }
 
-.incorrectIDs{
+.incorrectIDs {
     text-align: center;
     color: red;
     font-weight: bold;
@@ -85,12 +85,14 @@
     border-collapse: collapse;
     width: 100%;
 }
+
 .list th,
 .list td {
     padding: 1rem 2rem;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
+
 .list th {
     font-weight: normal;
     font-size: .875rem;
@@ -100,6 +102,7 @@
     position: sticky;
     top: 0;
 }
+
 .list img {
     width: 80px;
     display: block;
@@ -108,13 +111,15 @@
 }
 
 /* レスポンシブ対応 */
-@media(max-width: 500px) {
+@media (max-width: 500px) {
     .heading {
         display: none;
     }
+
     .list td {
         display: block;
     }
+
     .player-name {
         background: #eee;
     }
@@ -124,4 +129,102 @@
     text-align: center;
     font-size: 2.5rem;
     font-family: 'El Messiri', sans-serif;
+}
+
+/*? Menu Page*/
+#home {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.menu ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: .5em 0;
+    list-style: none;
+}
+
+.menu-item {
+    background: #444;
+    padding: 1em .5em;
+    position: relative;
+    border-bottom: 5px solid #999;
+    margin: 0 .1em;
+    transition: border-bottom .23s ease-in-out, background .23s linear;
+    cursor: pointer;
+    min-width: 8em;
+    text-align: center;
+}
+
+.menu-item:hover, .menu-item:focus-within {
+    border-bottom-color: #cd0303;
+    background: #333;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.menu a:focus {
+    outline: none;
+}
+
+@media (max-width: 690px) {
+    .menu {
+        width: 95%;
+        font-size: 16px;
+    }
+
+    .menu-item {
+        margin: .1em;
+    }
+
+    .menu-item:nth-child(1) {
+        order: 0;
+    }
+
+    .menu-item:nth-child(2) {
+        order: 1;
+    }
+
+    .menu-item:nth-child(3) {
+        order: 3;
+    }
+
+    .menu-item:nth-child(4) {
+        order: 4;
+    }
+
+    .menu-item:nth-child(5) {
+        order: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu {
+        font-size: 12px;
+    }
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'El Messiri', sans-serif;
+    color: darkcyan;
 }
