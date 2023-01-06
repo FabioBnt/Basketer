@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
     <title>Basketer</title>
 </head>
 
-<body>
+<body id="index">
 <div class="login-page">
     <div class="welcome">
         <h2>Rebonjour !</h2>

@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 /*? ALL */
-body {
+#index {
     background: #1c56dee7; /* fallback for old browsers */
     background: rgba(30, 81, 209, 0.911);
     background: linear-gradient(90deg, rgb(85, 100, 177) 0%, rgb(58, 84, 187) 50%);
@@ -80,17 +80,18 @@ body {
     font-weight: bold;
 }
 
-table {
+
+.list table {
     border-collapse: collapse;
     width: 100%;
 }
-th,
-td {
+.list th,
+.list td {
     padding: 1rem 2rem;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
-th {
+.list th {
     font-weight: normal;
     font-size: .875rem;
     color: #666;
@@ -99,7 +100,7 @@ th {
     position: sticky;
     top: 0;
 }
-img {
+.list img {
     width: 80px;
     display: block;
     margin: 0 auto;
@@ -111,15 +112,15 @@ img {
     .heading {
         display: none;
     }
-    td {
+    .list td {
         display: block;
     }
-    .car-name {
+    .player-name {
         background: #eee;
     }
 }
 
-h1 {
+.list h1 {
     text-align: center;
     font-size: 2.5rem;
     font-family: 'El Messiri', sans-serif;
