@@ -19,7 +19,7 @@ class DataBase
         }
     }
 
-    public static function getInstance(): ?DataBase
+    public static function getInstance(): DataBase
     {
         if (self::$instance === null) {
             self::$instance = new DataBase();
@@ -75,13 +75,13 @@ class DataBase
 
     // delete a col of a $table with col $idName that has the $value
     // example $mysql->deleteCol('Joueur','NumLicence', '111111111');
-    public function deleteCol(string $table, string $idName, string $idValue, string $idName2 = '', string $idValue2 = ''): void
+    public function deleteCol(string $table, string $idName, $idValue, string $idName2 = '', $idValue2 = ''): void
     {
         $pdo = $this->getPDO();
         if (is_string($idValue)) {
             $idValue = "'$idValue'";
         }
-        if($idName2 === ''  || $idValue2 === ''){
+        if ($idName2 === '' || $idValue2 === '') {
             if (is_string($idValue2)) {
                 $idValue2 = "'$idValue2'";
             }

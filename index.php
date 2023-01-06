@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     if ($username !== 'admin' || $password !== 'iutinfo') {
         $incorrect = true;
     } else {
-        header('Location:./home.html');
+        header('Location:./Pages/home.html');
         exit;
         }
     }

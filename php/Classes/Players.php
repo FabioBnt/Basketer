@@ -82,7 +82,7 @@ class Players
     {
         $mysql = DataBase::getInstance();
         try {
-            $mysql->delete('Joueur', 'NumLicence', $id);
+            $mysql->deleteCol('Joueur', 'NumLicence', $id);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
