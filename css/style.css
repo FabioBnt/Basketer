@@ -79,3 +79,48 @@ body {
     color: red;
     font-weight: bold;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th,
+td {
+    padding: 1rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    font-weight: normal;
+    font-size: .875rem;
+    color: #666;
+    background: #eee;
+    /*  以下２行で見出しを固定  */
+    position: sticky;
+    top: 0;
+}
+img {
+    width: 80px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: .5rem;
+}
+
+/* レスポンシブ対応 */
+@media(max-width: 500px) {
+    .heading {
+        display: none;
+    }
+    td {
+        display: block;
+    }
+    .car-name {
+        background: #eee;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'El Messiri', sans-serif;
+}
