@@ -81,7 +81,11 @@ class Players
     public function deletePlayer($id): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('Joueur','NumLicence', $id);
+        try {
+            $mysql->delete('Joueur', 'NumLicence', $id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
 /*

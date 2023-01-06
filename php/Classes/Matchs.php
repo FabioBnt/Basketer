@@ -7,23 +7,23 @@ class Matchs
         $numCols = 0;
         $conds = 'where ';
         if ($date !== '') {
-            $conds . +"DateM = '$date' AND ";
+            $conds .= "DateM = '$date' AND ";
             $numCols++;
         }
         if ($opposingTeamName !== '') {
-            $conds . +"NomEquipeAdv = '$opposingTeamName' AND ";
+            $conds .= "NomEquipeAdv = '$opposingTeamName' AND ";
             $numCols++;
         }
         if ($location !== '') {
-            $conds . +"Lieu = '$location' AND ";
+            $conds .= "Lieu = '$location' AND ";
             $numCols++;
         }
         if ($score !== '') {
-            $conds . +"ScoreEquipe = '$score' AND ";
+            $conds .= "ScoreEquipe = '$score' AND ";
             $numCols++;
         }
         if ($opposingScore !== '') {
-            $conds . +"ScoreEquipeAdv = '$opposingScore' AND ";
+            $conds .= "ScoreEquipeAdv = '$opposingScore' AND ";
             $numCols++;
         }
         $conds = substr($conds, 0, -4);
@@ -37,10 +37,33 @@ class Matchs
         return $data;
     }
 
-    public function insertMatch($date, $opposingTeamName, $location, $score, $opposingScore)
+    public function insertMatch($date, $opposingTeamName, $location, $score, $opposingScore): void
     {
+        if (count($this->selectMatches($date, $opposingTeamName, $location, $score, $opposingScore)) > 0) {
+            throw new Exception('Match already exists in our database');
+        }
         $mysql = DataBase::getInstance();
         $values = array($date, $opposingTeamName, $location, $score, $opposingScore);
         $mysql->insert('Matchs,(DateM,NomEquipeAdv,Lieu,ScoreEquipe,ScoreEquipeAdv)', $values);
+    }
+
+    public function modifyMatches($id, $nameCol, $value): void
+    {
+        $mysql = DataBase::getInstance();
+        try {
+            $mysql->modifyCol('Matchs', 'IdMatch', $id, $nameCol, $value);
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function deleteMatch($id): void
+    {
+        $mysql = DataBase::getInstance();
+        try {
+            $mysql->delete('Matchs', 'IdMatch', $id);
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
     }
 }
