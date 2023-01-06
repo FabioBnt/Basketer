@@ -1,3 +1,10 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Liste Joueurs</title>
+</head>
+<body class="list">
 <h1>player Models</h1>
 <table>
     <tr class="heading">
@@ -9,7 +16,7 @@
     </tr>
     <tr>
         <td class="player-name">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/player1.png" alt="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car1.png" alt="">
             Compact
         </td>
         <td>140万円</td>
@@ -19,7 +26,7 @@
     </tr>
     <tr>
         <td class="player-name">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/player2.png" alt="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car2.png" alt="">
             Nice player
         </td>
         <td>150万円</td>
@@ -29,7 +36,7 @@
     </tr>
     <tr>
         <td class="player-name">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/player3.png" alt="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car3.png" alt="">
             Cool player
         </td>
         <td>290万円</td>
@@ -39,7 +46,7 @@
     </tr>
     <tr>
         <td class="player-name">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/player4.png" alt="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car4.png" alt="">
             SUV
         </td>
         <td>430万円</td>
@@ -49,7 +56,7 @@
     </tr>
     <tr>
         <td class="player-name">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/player5.png" alt="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/car5.png" alt="">
             Minivan
         </td>
         <td>290万円</td>
@@ -58,3 +65,5 @@
         <td>1.8L</td>
     </tr>
 </table>
+</body>
+</html>
