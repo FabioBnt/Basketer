@@ -22,12 +22,13 @@
         <th>Poids</th>
         <th>Poste preferé</th>
         <th>Statut</th>
+        <th>Modif</th>
     </tr>
     <?php
     foreach($players as $player){
         echo '<tr>';
             echo '<td class="player-name">';
-                //echo "<img src='".$player['Photo']."' alt='photo ".$player['Nom'].">";
+                echo "<img src=\"".$player['Photo']."\" alt=\"photo ".$player['Nom']."\"/>";
                 echo $player['Nom'].' '.$player['Prenom'];
             echo '</td>';
             echo '<td>'.$player['NumLicence'].'</td>';
@@ -36,6 +37,9 @@
             echo '<td>'.$player['Poids'].'</td>';
             echo '<td>'.$player['PostePref'].'</td>';
             echo '<td>'.$player['Statut'].'</td>';
+            echo '<td><a href="PlayerModif.php?number='.$player['NumLicence'].'&Nom='.$player['Nom'].'&Prenom='.$player['Prenom'].
+                '&DateNaiss='.$player['DateNaiss'].'&Taille='.$player['Taille'].'&Poids='.$player['Poids'].'&Poste='.$player['PostePref'].
+                '&Status='.$player['Statut'].'&Photo='.$player['Photo'].'">Modifier</a></td>';
         echo '</tr>';
     }
     ?>
