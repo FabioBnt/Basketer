@@ -85,7 +85,11 @@ $status = $_GET['Statut'];
         <fieldset>
             Poste &emsp;<input placeholder="Poste" type="text" name="prefPos" value="<?php echo $poste;?>" required>
         <fieldset>
-            Statut &emsp;<input placeholder="Statut" type="text" name="status" value="<?php echo $status;?>" required>
+            Statut &emsp;<select name="status" id="status">
+                <option value="Actif" <?php if($status == "Actif"){echo "selected";}?>>Actif</option>
+                <option value="Blessé" <?php if($status == "Blessé"){echo "selected";}?>>Blessé</option>
+                <option value="Suspendu" <?php if($status == "Suspendu"){echo "selected";}?>>Suspendu</option>
+                <option value="Absent" <?php if($status == "Absent"){echo "selected";}?>>Absent</option>
         </fieldset>
             <button name="submit" type="submit" id="modif-submit" data-submit="...Sending">Modifier</button>
         </fieldset>

@@ -1,9 +1,15 @@
 <?php
-include './DataBase.php';
+//include './DataBase.php';
 
 class Participants
 {
-    public function selectParticipants($idMatch = 0, $number = '', $role = '', $performance = 0, $comments = '')
+    private $idMatch;
+    public function __construct($idMatch)
+    {
+        $this->idMatch = $idMatch;
+    }
+
+    public function selectParticipants($number = '', $role = '', $performance = 0, $comments = '')
     {
         $numCols = 0;
         $conds = "where ";
@@ -11,8 +17,8 @@ class Participants
             $conds.="NumLicence = '$number' AND ";
             $numCols++;
         }
-        if ($idMatch !== 0) {
-            $conds.="IdMatch = $idMatch AND ";
+        if ($this->idMatch !== 0) {
+            $conds.="IdMatch = $this->idMatch AND ";
             $numCols++;
         }
         if ($role !== '') {
@@ -35,14 +41,15 @@ class Participants
         } else {
             $data = $mysql->select('*', 'participer');
         }
-        return $data;
+        // make NumLicence the key of array of $data and return it
+        return array_combine(array_column($data, 'NumLicence'), $data);
     }
 
-    public function insertParticipant($number, $idMatch, $performance, $role, $comments)
+    public function insertParticipant($number, $performance, $role, $comments)
     {
         try{
             $mysql = DataBase::getInstance();
-            $values = array($number, $idMatch, $performance, $role, $comments);
+            $values = array($number, $this->idMatch, $performance, $role, $comments);
             $mysql->insert('`participer` (`NumLicence`, `IDMatch`, `Performance`, `Role`, `Commentaire`)', $values);
         }catch (Exception $e) {
             echo $e->getMessage();
@@ -50,28 +57,28 @@ class Participants
         
     }
 
-    public function modifyParticipant($idPlayer, $idMatch, $nameCol, $value): void
+    public function modifyParticipant($idPlayer, $nameCol, $value): void
     {
         $mysql = DataBase::getInstance();
         try {
-            $mysql->modifyCol('Joueur', 'NumLicence', $idPlayer, $nameCol, $value, 'IdMatch', $idMatch);
+            $mysql->modifyCol('Joueur', 'NumLicence', $idPlayer, $nameCol, $value, 'IdMatch', $this->idMatch);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 
-    public function deleteParticipant($idPlayer, $idMatch): void
+    public function deleteParticipant($idPlayer): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('participer','NumLicence', $idPlayer, 'IdMatch', $idMatch);
+        $mysql->deleteCol('participer','NumLicence', $idPlayer, 'IdMatch', $this->idMatch);
     }
-    public function deleteAllParticipant($idMatch): void
+    public function deleteAllParticipant(): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('participer','IdMatch', $idMatch);
+        $mysql->deleteCol('participer','IdMatch', $this->idMatch);
     }
-    public function numberOfParticipants($idMatch){
+    public function numberOfParticipants(){
         $mysql = DataBase::getInstance();
-        return $mysql->countCols('participer', 'where IdMatch = '.$idMatch);
+        return $mysql->countCols('participer', 'where IdMatch = '.$this->idMatch);
     }
 }
