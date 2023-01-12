@@ -43,6 +43,7 @@ $date = $_GET['DateNaiss'];
 $taille = $_GET['Taille'];
 $poids = $_GET['Poids'];
 $poste = $_GET['Poste'];
+$status = $_GET['Statut'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -84,7 +85,7 @@ $poste = $_GET['Poste'];
         <fieldset>
             Poste &emsp;<input placeholder="Poste" type="text" name="prefPos" value="<?php echo $poste;?>" required>
         <fieldset>
-            Statut &emsp;<input placeholder="Statut" type="text" name="status" value="Actif" required>
+            Statut &emsp;<input placeholder="Statut" type="text" name="status" value="<?php echo $status;?>" required>
         </fieldset>
             <button name="submit" type="submit" id="modif-submit" data-submit="...Sending">Modifier</button>
         </fieldset>
@@ -92,4 +93,5 @@ $poste = $_GET['Poste'];
 
 </div>
 </body>
-<?php }?>
+</html>
+<?php } ?>
