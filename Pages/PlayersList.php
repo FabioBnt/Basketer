@@ -3,7 +3,12 @@
     include_once "../php/Classes/Players.php";
     $player = new Players();
     $players = $player->selectPlayers();
-    //print_r($players);
+    //delete player
+    if(isset($_GET['del'])){
+        $player->deletePlayer($_GET['del']);
+        header('Location:./PlayersList.php');
+        exit;
+    }
 ?>
 <html lang="fr">
 <head>
@@ -22,7 +27,7 @@
         <th>Poids</th>
         <th>Poste preferé</th>
         <th>Statut</th>
-        <th>Modif</th>
+        <th>Actions</th>
     </tr>
     <?php
     foreach($players as $player){
@@ -39,7 +44,9 @@
             echo '<td>'.$player['Statut'].'</td>';
             echo '<td><a href="PlayerModif.php?number='.$player['NumLicence'].'&Nom='.$player['Nom'].'&Prenom='.$player['Prenom'].
                 '&DateNaiss='.$player['DateNaiss'].'&Taille='.$player['Taille'].'&Poids='.$player['Poids'].'&Poste='.$player['PostePref'].
-                '&Status='.$player['Statut'].'&Photo='.$player['Photo'].'">Modifier</a></td>';
+                '&Status='.$player['Statut'].'&Photo='.$player['Photo'].'">Modifier</a>
+                  / <a href="PlayersList.php?del='.$player['NumLicence'].'">Supprimer</a>
+                </td>';
         echo '</tr>';
     }
     ?>
