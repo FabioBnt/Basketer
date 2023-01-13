@@ -2,7 +2,7 @@
 
 class Matchs
 {
-    public function selectMatches($date, $opposingTeamName, $location, $score, $opposingScore)
+    public function selectMatches($date = '', $opposingTeamName = '', $location = '', $score = '', $opposingScore = '')
     {
         $numCols = 0;
         $conds = 'where ';
@@ -61,7 +61,7 @@ class Matchs
     {
         $mysql = DataBase::getInstance();
         try {
-            $mysql->delete('Matchs', 'IdMatch', $id);
+            $mysql->deleteCol('Matchs', 'IdMatch', $id);
         } catch (Exception $e) {
             $e->getMessage();
         }

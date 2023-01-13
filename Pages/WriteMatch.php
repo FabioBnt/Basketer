@@ -5,7 +5,7 @@
 la sélection ne devra pas pouvoir être validée.
 L'interface de sélection devra afficher les informations des joueurs :
   photo, taille, poids, poste préféré, commentaires et évaluations de l'entraineur.
-**Adapter l'affichage des matchs pour permettre de visualiser et modifier la sélection.** which means?
+**Adapter l'affichage des matchs pour permettre de visualiser et modifier la sélection.** which means? pas trop compris non plus...
 */
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Players.php";

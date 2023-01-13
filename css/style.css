@@ -120,7 +120,7 @@
         display: block;
     }
 
-    .player-name {
+    .player-name, .opposingTeam-name {
         background: #eee;
     }
 }
