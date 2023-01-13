@@ -13,7 +13,7 @@ if(isset($_POST['number'])){
     $status = $_POST['status'];
     $image=$_FILES['photo'];
     $temp = explode('.', $image['name']);
-    $newfilename = '../../Images/.$number' . '.' . end($temp);
+    $newfilename = '../../Images/'.$number.'.'. end($temp);
     move_uploaded_file($image['tmp_name'],$newfilename);
     try{
         $player->insertPlayer($number, $familyName, $name, $newfilename, $birthDate, $size, $weight, $prefPos, $status);
@@ -56,10 +56,10 @@ if(isset($_POST['number'])){
             Date de Naissance &emsp;&emsp;&emsp;<input placeholder="Date de Naissance" type="date" name="birthDate" required>
         </fieldset>
         <fieldset>
-            Taille &emsp;<input placeholder="Taille" type="text" name="size"  required>
+            Taille &emsp;<input placeholder="Taille" type="number" name="size" min="1" step="0.01" required>
         </fieldset>
         <fieldset>
-            Poids &emsp;<input placeholder="Poids" type="text" name="weight" required>
+            Poids &emsp;<input placeholder="Poids" type="number" name="weight" min="50"  required>
         </fieldset>
         <fieldset>
             Poste &emsp;<input placeholder="Poste" type="text" name="prefPos"  required>

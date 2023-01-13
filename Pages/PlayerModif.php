@@ -23,9 +23,13 @@ if(isset($_POST['number'])){
     if(isset($_FILES['photo'])){
         $image=$_FILES['photo'];
         $temp = explode('.', $image['name']);
-        $newfilename = '../../Images/.$number' . '.' . end($temp);
-        move_uploaded_file($image['tmp_name'],$newfilename);
-        $player->modifyPlayer($number,"Photo", $newfilename);
+        $extension = end($temp);
+        if($extension == 'jpg' || $extension == 'png' || $extension == 'jpeg'){
+            $newfilename = '../../Images/'.$number.'.'.$extension;
+            move_uploaded_file($image['tmp_name'],$newfilename);
+            $player->modifyPlayer($number,"Photo", $newfilename);
+        }
+
     }
     //$player->insertPlayer($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status);
     header('Location:./PlayersList.php');
@@ -43,7 +47,7 @@ $date = $_GET['DateNaiss'];
 $taille = $_GET['Taille'];
 $poids = $_GET['Poids'];
 $poste = $_GET['Poste'];
-$status = $_GET['Statut'];
+$status = $_GET['Status'];
 ?>
     <!DOCTYPE html>
     <html lang="fr">
@@ -77,10 +81,10 @@ $status = $_GET['Statut'];
             Date de Naissance &emsp;&emsp;&emsp;<input placeholder="Date de Naissance" type="date" name="birthDate" value="<?php echo $date;?>" required>
         </fieldset>
         <fieldset>
-            Taille &emsp;<input placeholder="Taille" type="text" name="size" value="<?php echo $taille;?>" required>
+            Taille &emsp;<input placeholder="Taille" type="number" name="size" min="1.0" value="<?php echo $taille;?>" step=".01" required>
         </fieldset>
         <fieldset>
-            Poids &emsp;<input placeholder="Poids" type="text" name="weight" value="<?php echo $poids;?>" required>
+            Poids &emsp;<input placeholder="Poids" type="number" name="weight" min="50" value="<?php echo $poids;?>"  required>
         </fieldset>
         <fieldset>
             Poste &emsp;<input placeholder="Poste" type="text" name="prefPos" value="<?php echo $poste;?>" required>
@@ -90,6 +94,7 @@ $status = $_GET['Statut'];
                 <option value="Blessé" <?php if($status == "Blessé"){echo "selected";}?>>Blessé</option>
                 <option value="Suspendu" <?php if($status == "Suspendu"){echo "selected";}?>>Suspendu</option>
                 <option value="Absent" <?php if($status == "Absent"){echo "selected";}?>>Absent</option>
+            </select>
         </fieldset>
             <button name="submit" type="submit" id="modif-submit" data-submit="...Sending">Modifier</button>
         </fieldset>
