@@ -20,10 +20,11 @@ if(isset($_GET['del'])){
 <h1>Liste des matchs de l'équipe</h1>
 <table>
     <tr class="heading">
-        <th>Equipe adverse</th>
+        <th>Equipe Adverse</th>
         <th>Date</th>
-        <th>Heure</th>
         <th>Lieu</th>
+        <th>Score Equipe</th>
+        <th>Score Equipe Adverse</th>
         <th>Actions</th>
     </tr>
     <?php
@@ -35,11 +36,12 @@ if(isset($_GET['del'])){
             echo '<td>'.$match['DateM'].'</td>';
             echo '<td>'.$match['Lieu'].'</td>';
             echo '<td>'.$match['ScoreEquipe'].'</td>';
-            echo '<td>'.$match['ScoreEquipeAdv'].'</td>';
-            echo '<td><a href="MatchModif.php?number='.$match['IDMatch'].'&NomEquipeAdv='.$match['NomEquipeAdv'].
-                '&DateM='.$match['DateM'].'&LieuMatch='.$match['LieuMatch'].'&ScoreEquipe='.$match['ScoreEquipe'].'&ScoreEquipeAdv='.$match['ScoreEquipeAdv'].
-                '">Modifier</a>
-                  / <a href="MatchList.php?del='.$match['IDMatch'].'">Supprimer</a>
+        echo '<td>' . $match['ScoreEquipeAdv'] . '</td>';
+        echo '<td><a href="MatchModif.php?IDMatch=' . $match['IDMatch'] . '&NomEquipeAdv=' . $match['NomEquipeAdv'] .
+            '&DateM=' . $match['DateM'] . '&LieuMatch=' . $match['LieuMatch'] . '&ScoreEquipe=' . $match['ScoreEquipe'] . '&ScoreEquipeAdv=' . $match['ScoreEquipeAdv'] .
+            '">Modifier</a>
+                  / <a href="MatchList.php?del=' . $match['IDMatch'] . '">Supprimer</a>
+                  / <a href="WriteMatch.php?match=' . $match['IDMatch'] . '">Ecrire</a>
                 </td>';
         echo '</tr>';
     }

@@ -43,6 +43,11 @@ class Participants
         }
         // make NumLicence the key of array of $data and return it
         return array_combine(array_column($data, 'NumLicence'), $data);
+        /*$numLicenseData = array();
+        foreach ($data as $ligne){
+            $numLicenseData[$ligne['NumLicence']] = $ligne;
+        }
+        return $numLicenseData;*/
     }
 
     public function insertParticipant($number, $performance, $role, $comments)

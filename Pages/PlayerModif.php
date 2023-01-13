@@ -19,7 +19,7 @@ if(isset($_POST['number'])){
     $player->modifyPlayer($number, 'PostePref', $prefPos);
     $status = $_POST['status'];
     $player->modifyPlayer($number, 'Statut', $status);
-    print_r($_POST);
+    //print_r($_POST);
     if(isset($_FILES['photo'])){
         $image=$_FILES['photo'];
         $temp = explode('.', $image['name']);
@@ -45,19 +45,19 @@ $poids = $_GET['Poids'];
 $poste = $_GET['Poste'];
 $status = $_GET['Statut'];
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<!--todo make a form to modify player-->
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Basketer</title>
-</head>
-<body>
-<div class="containerM">
-    <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+    <!DOCTYPE html>
+    <html lang="fr">
+    <!--todo make a form to modify player-->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Modifier un joueur</title>
+    </head>
+    <body>
+    <div class="containerM">
+        <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
         <h3>Modifier joueur <?php echo $nom;?></h3>
         <fieldset>
             Numero Licence<input placeholder="Numero Licence" type="text" name="number" value="<?php echo $num;?>" required autofocus>

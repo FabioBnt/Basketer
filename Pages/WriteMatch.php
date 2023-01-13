@@ -65,17 +65,18 @@ if(isset($_GET['match'])) {
         $role = '';
         $comments = '';
         $evaluation = '';
-        if(isset($participants->participants[$player['id']])){
+        print_r($participants);
+        /*if(isset($participants[$player['NumLicence']])){
             $selected = 'checked';
-            $role = $participants->participants[$player['id']]['role'];
-            $comments = $participants->participants[$player['id']]['comments'];
-            $evaluation = $participants->participants[$player['id']]['evaluation'];
-        }
+            $role = $participants[$player['NumLicence']]['role'];
+            $comments = $participants[$player['NumLicence']]['comments'];
+            $evaluation = $participants[$player['NumLicence']]['evaluation'];
+        }*/
         echo '<tr>';
-        echo '<td><input type="checkbox" name="selected[]" value="'.$player['NumLicence'] .' '.$selected.'"></td>';
+        echo '<td><input type="checkbox" name="selected[]" value="' . $player['NumLicence'] . ' ' . $selected . '"></td>';
         echo '<td class="player-name">';
-        echo "<img src=\"".$player['Photo']."\" alt=\"photo ".$player['Nom']."\"/>";
-        echo $player['Nom'].' '.$player['Prenom'];
+        echo "<img src=\"" . $player['Photo'] . "\" alt=\"photo " . $player['Nom'] . "\"/>";
+        echo $player['Nom'] . ' ' . $player['Prenom'];
         echo '</td>';
         echo '<td>'.$player['NumLicence'].'</td>';
         echo '<td>'.$player['DateNaiss'].'</td>';
@@ -83,12 +84,12 @@ if(isset($_GET['match'])) {
         echo '<td>'.$player['Poids'].'</td>';
         echo '<td>'.$player['PostePref'].'</td>';
         echo '<td>'.$player['Statut'].'</td>';
-        echo '<td><select name="role'.$player['NumLicence'].'">
-                <option value="Titulaire" '.($role == 'Titulaire' ? 'selected' : '').'>Titulaire</option> 
-                <option value="Remplaçant" '.($role == 'Remplaçant' || $role == 'Remplacant' ? 'selected' : '').'>Remplaçant</option> 
+        echo '<td><select name="role' . $player['NumLicence'] . '">
+                <option value="Titulaire" ' . ($role === 'Titulaire' ? 'selected' : '') . '>Titulaire</option> 
+                <option value="Remplaçant" ' . ($role == 'Remplaçant' || $role == 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
                 </select></td>';
-        echo '<td><textarea name="comments'.$player['NumLicence'].'" cols="30" rows="10">$comments</textarea></td>';
-        echo '<td><input type="number" name="evaluation'.$player['NumLicence'].'" value="'.$evaluation.'" min="0"></td>';
+        echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="30" rows="10"> ' . $comments . ' </textarea></td>';
+        echo '<td><input type="number" name="evaluation' . $player['NumLicence'] . '" value="' . $evaluation . '" min="0"></td>';
         echo '</tr>';
     }
     //hidden input match
