@@ -15,24 +15,70 @@ $player = new Players();
 $players = $player->selectPlayers("","","",
     "","","", "", "",'Actif');
 // needs the id of match as GET of name match to function
-if(isset($_GET['match'])) {
-    $participants = new Participants($_GET['match']);
-    $participants->selectParticipants();
+/**
+ * @param $player
+ * @param string $selected
+ * @param $role
+ * @param $comments
+ * @param $evaluation
+ * @return void
+ */
+function displayPlayers($player, string $selected, $role, $comments, $evaluation): void
+{
+    echo '<tr>';
+    echo '<td><input type="checkbox" name="selected[]" value="' . $player['NumLicence'] . '" ' . $selected . '></td>';
+    echo '<td class="player-name">';
+    echo "<img src=\"" . $player['Photo'] . "\" alt=\"photo " . $player['Nom'] . "\"/>";
+    echo $player['Nom'] . ' ' . $player['Prenom'];
+    echo '</td>';
+    echo '<td>' . $player['NumLicence'] . '</td>';
+    echo '<td>' . $player['DateNaiss'] . '</td>';
+    echo '<td>' . $player['Taille'] . '</td>';
+    echo '<td>' . $player['Poids'] . '</td>';
+    echo '<td>' . $player['PostePref'] . '</td>';
+    echo '<td>' . $player['Statut'] . '</td>';
+    echo '<td><select name="role' . $player['NumLicence'] . '">
+                <option value="Titulaire" ' . ($role === 'Titulaire' ? 'selected' : '') . '>Titulaire</option> 
+                <option value="Remplaçant" ' . ($role == 'Remplaçant' || $role == 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
+                </select></td>';
+    echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="30" rows="10"> ' . $comments . ' </textarea></td>';
+    echo '<td><input type="number" name="evaluation' . $player['NumLicence'] . '" value="' . $evaluation . '" min="0"></td>';
+    echo '</tr>';
+}
 
+if(isset($_GET['match']) || isset($_POST['match'])){
+    $match = $_GET['match'] ?? $_POST['match'];
+    $participants = new Participants($match);
+    $participant = $participants->selectParticipants();
     if(isset($_POST['selected'])) {
-
-
         $selected = $_POST['selected'];
-        if (count($selected) < 13) {
-            echo "<script>alert('Il faut au moins 13 joueurs sélectionnés')</script>";
-        } else {
-            $participants->deleteAllParticipant($_GET['match']);
+
+        if (count($selected) > 13 && count($selected) < 8) {
+            echo '<script>alert("Il faut au moins 8 joueurs et au maximum 13")</script>';
+
+
+        } // check if the number of tatitulaires equals to 5
+        $titulaires = 0;
+        if (count($selected) > 5) {
             foreach ($selected as $player) {
-                $participants->insertParticipant($player, $_POST['evaluation' . $player],$_POST['role' . $player],$_POST['comments' . $player]);
+                if ($_POST['role' . $player] == 'Titulaire') {
+                    $titulaires++;
+                }
             }
-            header('Location:./MatchsList.php');
-            exit;
+            if ($titulaires != 5) {
+                echo '<script>alert("Il faut 5 titulaires")</script>';
+            }
         }
+        if($titulaires == 5 && count($selected) > 7 && count($selected) < 14) {
+            $participants->deleteAllParticipant($match);
+            foreach ($selected as $player) {
+                $participants->insertParticipant($player, $_POST['evaluation'.$player],$_POST['role' . $player],$_POST['comments' . $player]);
+            }
+            //send that the modifcation was a success
+            header('Location:./MatchList.php?alertMessage=Les modifications ont été enregistrées');
+            exit();
+        }
+
     }
 
 ?>
@@ -44,7 +90,7 @@ if(isset($_GET['match'])) {
 </head>
 <body class="list">
 <h1>Fiche de match</h1>
-<form action="<?php echo $_SERVER['PHP_SELF'];?> " method="post">
+<form action="<?php echo $_SERVER['PHP_SELF'];?> " method="POST">
 <table>
     <tr class="heading">
         <th>Choix</th>
@@ -65,45 +111,37 @@ if(isset($_GET['match'])) {
         $role = '';
         $comments = '';
         $evaluation = '';
-        print_r($participants);
-        /*if(isset($participants[$player['NumLicence']])){
+        // one of the two must be true
+        if(isset($_GET['match']) && isset($participant[$player['NumLicence']])){
             $selected = 'checked';
-            $role = $participants[$player['NumLicence']]['role'];
-            $comments = $participants[$player['NumLicence']]['comments'];
-            $evaluation = $participants[$player['NumLicence']]['evaluation'];
-        }*/
-        echo '<tr>';
-        echo '<td><input type="checkbox" name="selected[]" value="' . $player['NumLicence'] . ' ' . $selected . '"></td>';
-        echo '<td class="player-name">';
-        echo "<img src=\"" . $player['Photo'] . "\" alt=\"photo " . $player['Nom'] . "\"/>";
-        echo $player['Nom'] . ' ' . $player['Prenom'];
-        echo '</td>';
-        echo '<td>'.$player['NumLicence'].'</td>';
-        echo '<td>'.$player['DateNaiss'].'</td>';
-        echo '<td>'.$player['Taille'].'</td>';
-        echo '<td>'.$player['Poids'].'</td>';
-        echo '<td>'.$player['PostePref'].'</td>';
-        echo '<td>'.$player['Statut'].'</td>';
-        echo '<td><select name="role' . $player['NumLicence'] . '">
-                <option value="Titulaire" ' . ($role === 'Titulaire' ? 'selected' : '') . '>Titulaire</option> 
-                <option value="Remplaçant" ' . ($role == 'Remplaçant' || $role == 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
-                </select></td>';
-        echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="30" rows="10"> ' . $comments . ' </textarea></td>';
-        echo '<td><input type="number" name="evaluation' . $player['NumLicence'] . '" value="' . $evaluation . '" min="0"></td>';
-        echo '</tr>';
+            $role = $participant[$player['NumLicence']]['Role'];
+            $comments = $participant[$player['NumLicence']]['Commentaire'];
+            $evaluation = $participant[$player['NumLicence']]['Performance'];
+        }
+        // meme pour if(isset($_POST['selected'])) {
+        //        $selected = $_POST['selected'];
+        if(isset($_POST['selected']) && in_array(($player['NumLicence'] - '0'), $_POST['selected'])){
+            $selected = 'checked';
+            $role = $_POST['role'.$player['NumLicence']];
+            $comments = $_POST['comments'.$player['NumLicence']];
+            $evaluation = $_POST['evaluation'.$player['NumLicence']];
+        }
+        displayPlayers($player, $selected, $role, $comments, $evaluation);
     }
     //hidden input match
-    echo '<input type="hidden" name="match" value="'.$_GET['match'].'">';
+    echo '<input type="hidden" name="match" value="'.$match.'">';
     ?>
 </table>
+    <input type="reset" name="reset" value="Defaut">
     <input type="submit" name="submit" value="Valider">
 </form>
+
 </body>
 </html>
 <?php
 }else{
-    echo "<script>alert('Il faut choisir un match')</script>";
-    header('Location:./MatchsList.php');
+    //send that a selection of a match is required
+    header('Location:./MatchList.php?alertMessage=Veuillez selectionner un match avant de saisir la fiche de match');
     exit;
 }
 ?>

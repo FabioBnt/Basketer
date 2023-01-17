@@ -64,7 +64,12 @@ if(isset($_POST['number'])){
         <fieldset>
             Poste &emsp;<input placeholder="Poste" type="text" name="prefPos"  required>
             <fieldset>
-                Statut &emsp;<input placeholder="Statut" type="text" name="status"  required>
+                Statut &emsp;<select name="status" id="status">
+                    <option value="Actif" >Actif</option>
+                    <option value="Blessé">Blessé</option>
+                    <option value="Suspendu" >Suspendu</option>
+                    <option value="Absent" >Absent</option>
+                </select>
             </fieldset>
             <button name="submit" type="submit" id="modif-submit" data-submit="...Sending">Creer</button>
         </fieldset>

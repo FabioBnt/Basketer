@@ -3,46 +3,37 @@
 
 class Participants
 {
-    private $idMatch;
+    private int $idMatch;
     public function __construct($idMatch)
     {
         $this->idMatch = $idMatch;
     }
 
-    public function selectParticipants($number = '', $role = '', $performance = 0, $comments = '')
+    public function selectParticipants($number = '', $role = '', $performance = 0, $comments = '') : array
     {
         $numCols = 0;
         $conds = "where ";
         if ($number !== '') {
             $conds.="NumLicence = '$number' AND ";
-            $numCols++;
         }
-        if ($this->idMatch !== 0) {
-            $conds.="IdMatch = $this->idMatch AND ";
-            $numCols++;
-        }
+        $conds.="IDMatch = $this->idMatch AND ";
         if ($role !== '') {
             $conds.="Role = '$role' AND ";
-            $numCols++;
         }
         if ($performance !== 0) {
             $conds.="Performance = $performance AND ";
-            $numCols++;
         }
         if ($comments !== '') {
             $conds.="Commentaire like '%$comments%' AND ";
-            $numCols++;
         }
         $conds = substr($conds, 0, -4);
         $mysql = DataBase::getInstance();
         $data = array();
-        if ($numCols > 0) {
-            $data = $mysql->select('*', 'participer', $conds);
-        } else {
-            $data = $mysql->select('*', 'participer');
-        }
+        $data = $mysql->select('*', 'participer', $conds);
         // make NumLicence the key of array of $data and return it
-        return array_combine(array_column($data, 'NumLicence'), $data);
+        $data = array_combine(array_column($data, 'NumLicence'), $data);
+        //if false return array() else return value
+        return $data === false ? array() : $data;
         /*$numLicenseData = array();
         foreach ($data as $ligne){
             $numLicenseData[$ligne['NumLicence']] = $ligne;

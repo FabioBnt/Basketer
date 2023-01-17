@@ -50,6 +50,8 @@
         echo '</tr>';
     }
     ?>
+    <button class="custom-btn btn-3" onclick="location.href='PlayerCreate.php'"><span>Créer Joueur</span></button>
 </table>
+
 </body>
 </html>
