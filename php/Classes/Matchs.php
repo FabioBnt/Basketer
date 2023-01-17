@@ -44,7 +44,7 @@ class Matchs
         }
         $mysql = DataBase::getInstance();
         $values = array($date, $opposingTeamName, $location, $score, $opposingScore);
-        $mysql->insert('Matchs,(DateM,NomEquipeAdv,Lieu,ScoreEquipe,ScoreEquipeAdv)', $values);
+        $mysql->insert('Matchs (DateM,NomEquipeAdv,Lieu,ScoreEquipe,ScoreEquipeAdv)', $values);
     }
 
     public function modifyMatches($id, $nameCol, $value): void

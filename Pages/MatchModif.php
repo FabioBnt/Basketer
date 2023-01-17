@@ -21,11 +21,11 @@ if (!isset($_GET['IDMatch'])) {
     header('Location: ../Pages/MatchList.php');
     exit;
 }
-$date = $_GET['date'];
-$opposingTeamName = $_GET['opposingTeamName'];
-$location = $_GET['location'];
-$score = $_GET['score'];
-$opposingScore = $_GET['opposingScore'];
+$date = $_GET['DateM'];
+$opposingTeamName = $_GET['NomEquipeAdv'];
+$location = $_GET['LieuMatch'];
+$score = $_GET['ScoreEquipe'];
+$opposingScore = $_GET['ScoreEquipeAdv'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">

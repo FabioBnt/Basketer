@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $awayScore = $_POST['awayScore'];
     try {
         $match->insertMatch($date, $awayTeam, $place, $homeScore, $awayScore);
-        header('Location:./MatchsList.php');
+        header('Location:./MatchList.php');
         exit;
     } catch (Exception $e) {
         echo $e->getMessage();
