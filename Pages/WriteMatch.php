@@ -7,6 +7,17 @@ L'interface de sélection devra afficher les informations des joueurs :
   photo, taille, poids, poste préféré, commentaires et évaluations de l'entraineur.
 **Adapter l'affichage des matchs pour permettre de visualiser et modifier la sélection.** which means? pas trop compris non plus...
 */
+session_start();
+if (!isset($_SESSION['logged'])) {
+    header('Location:../index.php');
+    exit;
+}
+if (isset($_GET['logout']) && $_GET['logout']) {
+    session_unset();
+    session_destroy();
+    header('Location:../index.php');
+    exit;
+}
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Players.php";
 include_once "../php/Classes/Participants.php";
@@ -48,7 +59,7 @@ function displayPlayers($player, string $selected, $role, $comments, $evaluation
     echo '<td>' . $player['Statut'] . '</td>';
     echo '<td><select name="role' . $player['NumLicence'] . '">
                 <option value="Titulaire" ' . ($role === 'Titulaire' ? 'selected' : '') . '>Titulaire</option> 
-                <option value="Remplaçant" ' . ($role == 'Remplaçant' || $role == 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
+                <option value="Remplaçant" ' . ($role === 'Remplaçant' || $role === 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
                 </select></td>';
     echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="30" rows="10"> ' . $comments . ' </textarea></td>';
     echo '<td><input type="number" name="evaluation' . $player['NumLicence'] . '" value="' . $evaluation . '" min="0"></td>';
@@ -62,21 +73,21 @@ if (isset($_GET['match']) || isset($_POST['match'])) {
     if (isset($_POST['selected'])) {
         $selected = $_POST['selected'];
 
-        if (count($selected) > 13 && count($selected) < 8) {
+        if (count($selected) > 13 || count($selected) < 8) {
             echo '<script>alert("Il faut au moins 8 joueurs et au maximum 13")</script>';
         } // check if the number of tatitulaires equals to 5
         $titulaires = 0;
         if (count($selected) > 5) {
             foreach ($selected as $player) {
-                if ($_POST['role' . $player] == 'Titulaire') {
+                if ($_POST['role' . $player] === 'Titulaire') {
                     $titulaires++;
                 }
             }
-            if ($titulaires != 5) {
+            if ($titulaires !== 5) {
                 echo '<script>alert("Il faut 5 titulaires")</script>';
             }
         }
-        if ($titulaires == 5 && count($selected) > 7 && count($selected) < 14) {
+        if ($titulaires === 5 && count($selected) > 7 && count($selected) < 14) {
             $participants->deleteAllParticipant($match);
             foreach ($selected as $player) {
                 $participants->insertParticipant($player, $_POST['evaluation' . $player], $_POST['role' . $player], $_POST['comments' . $player]);
@@ -103,10 +114,15 @@ if (isset($_GET['match']) || isset($_POST['match'])) {
                 </div>
                 <nav class="menu" role='navigation'>
                     <ol>
-                        <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                        <li class="menu-item"><a href="Home.php">Accueil</a></li>
                         <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
                         <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
                         <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                        <?php
+                        if ($_SESSION['logged']) {
+                            echo '<li class="menu-item"><a href="./Home.php?logout=true">Déconnexion</a></li>';
+                        }
+                        ?>
                     </ol>
                 </nav>
             </header>

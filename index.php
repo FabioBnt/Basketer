@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
         $incorrect = true;
     } else {
         $_SESSION['logged'] = true;
-        header('Location:./Pages/home.html');
+        header('Location:./Pages/Home.php');
         exit;
         }
     }

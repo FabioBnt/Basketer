@@ -1,6 +1,17 @@
 <?php
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Players.php";
+session_start();
+if(!isset($_SESSION['logged'])){
+    header('Location:../index.php');
+    exit;
+}
+if(isset($_GET['logout']) && $_GET['logout']){
+    session_unset();
+    session_destroy();
+    header('Location:../index.php');
+    exit;
+}
 if (isset($_POST['number'])) {
     $player = new Players();
     $number = $_POST['number'];
@@ -67,10 +78,15 @@ if (!isset($_GET['number'])) {
                 </div>
                 <nav class="menu" role='navigation'>
                     <ol>
-                        <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                        <li class="menu-item"><a href="Home.php">Accueil</a></li>
                         <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
                         <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
                         <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                        <?php
+                        if ($_SESSION['logged']) {
+                            echo '<li class="menu-item"><a href="./Home.php?logout=true">Déconnexion</a></li>';
+                        }
+                        ?>
                     </ol>
                 </nav>
             </header>
