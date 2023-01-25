@@ -21,72 +21,72 @@ $none = $numbers[3];
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiques d'équipe</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .score {
-            text-align: center;
-        }
-        .percentage {
-            text-align: right;
-        }
-    </style>
 </head>
-<body>
-<h1>Statistiques d'équipe</h1>
-<div class="score">
-    <p>Nombre total de matchs : <span id="total-matches"><?php echo $total;?> </span></p>
-    <p>Pourcentage de matchs gagnés : <span id="win-percentage"><?php echo $win;?></span>%</p>
-    <p>Pourcentage de matchs perdus : <span id="loss-percentage"><?php echo $loss;?></span>%</p>
-    <p>Pourcentage de matchs nuls : <span id="draw-percentage"><?php echo $tie;?></span>%</p>
-</div>
-<h2>Joueurs</h2>
-<table>
-    <tr>
-        <th>Nom</th>
-        <th>Statut</th>
-        <th>Poste préféré</th>
-        <th>Sélections (Titulaire)</th>
-        <th>Sélections (Remplaçant)</th>
-        <th>Moyenne d'évaluation</th>
-        <th>Pourcentage de matchs gagnés</th>
-        <th>Sélections consécutives</th>
-    </tr>
-    <?php
-    $players = new Players();
-    $players = $players->selectPlayers();
-    foreach ($players as $player) {
-        $playerStats = $stats->playerStats($player['NumLicence']);
-        // le nombre de sélections consécutives
-        $consecutive = $stats->consecutiveSelections($player['NumLicence']);
-        ?>
+
+<body class="body-stats">
+    <div class="container">
+        <header class="menu">
+            <div class="logo">
+            </div>
+            <nav class="menu" role='navigation'>
+                <ol>
+                    <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                    <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
+                    <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
+                    <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                </ol>
+            </nav>
+        </header>
+    </div>
+    <h1>Statistiques d'équipe</h1>
+    <div class="score">
+        <p>Nombre total de matchs : <span id="total-matches"><?php echo $total; ?> </span></p>
+        <p>Pourcentage de matchs gagnés : <span id="win-percentage"><?php echo $win; ?></span>%</p>
+        <p>Pourcentage de matchs perdus : <span id="loss-percentage"><?php echo $loss; ?></span>%</p>
+        <p>Pourcentage de matchs nuls : <span id="draw-percentage"><?php echo $tie; ?></span>%</p>
+    </div>
+    <h2>Joueurs</h2>
+    <table>
         <tr>
-            <td><?php echo $player['Nom'] . " " . $player['Prenom'];?></td>
-            <td><?php echo $player['Statut'];?></td>
-            <td><?php echo $player['PostePref'];?></td>
-            <td><?php echo $playerStats[0];?></td>
-            <td><?php echo $playerStats[1];?></td>
-            <td><?php echo $playerStats[2];?></td>
-            <td><?php echo $playerStats[3];?>%</td>
-            <td><?php echo $consecutive;?></td>
+            <th>Nom</th>
+            <th>Statut</th>
+            <th>Poste préféré</th>
+            <th>Sélections (Titulaire)</th>
+            <th>Sélections (Remplaçant)</th>
+            <th>Moyenne d'évaluation</th>
+            <th>Pourcentage de matchs gagnés</th>
+            <th>Sélections consécutives</th>
         </tr>
         <?php
-    }
+        $players = new Players();
+        $players = $players->selectPlayers();
+        foreach ($players as $player) {
+            $playerStats = $stats->playerStats($player['NumLicence']);
+            // le nombre de sélections consécutives
+            $consecutive = $stats->consecutiveSelections($player['NumLicence']);
+        ?>
+            <tr>
+                <td><?php echo $player['Nom'] . " " . $player['Prenom']; ?></td>
+                <td><?php echo $player['Statut']; ?></td>
+                <td><?php echo $player['PostePref']; ?></td>
+                <td><?php echo $playerStats[0]; ?></td>
+                <td><?php echo $playerStats[1]; ?></td>
+                <td><?php echo $playerStats[2]; ?></td>
+                <td><?php echo $playerStats[3]; ?>%</td>
+                <td><?php echo $consecutive; ?></td>
+            </tr>
+        <?php
+        }
 
-    ?>
-</table>
+        ?>
+    </table>
 </body>
-</html>
 
+</html>

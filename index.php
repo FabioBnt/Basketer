@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 include_once './php/Classes/DataBase.php';
 
+session_start();
 
 $incorrect = false;
 if (isset($_POST['submit'])) {
@@ -13,6 +14,7 @@ if (isset($_POST['submit'])) {
     if ($username !== 'admin' || $password !== 'iutinfo') {
         $incorrect = true;
     } else {
+        $_SESSION['logged'] = true;
         header('Location:./Pages/home.html');
         exit;
         }

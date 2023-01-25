@@ -26,13 +26,13 @@ class Stats
     public function playerStats($number)
     {
         $mysql = DataBase::getInstance();
-        $main = $mysql->countCols('participer', 'where NumLicence = ' . "'$number'" . ' AND Role = "Titulaire"');
-        $replace = $mysql->countCols('participer', 'where NumLicence = ' . "'$number'" . ' AND Role = "Remplacant"');
-        $average = $mysql->select('AVG(Performance) as total', 'participer', 'Where NumLicence = ' . "'$number'" . ' AND Performance is not NULL');
+        $main = $mysql->countCols('Participer', 'where NumLicence = ' . "'$number'" . ' AND Role = "Titulaire"');
+        $replace = $mysql->countCols('Participer', 'where NumLicence = ' . "'$number'" . ' AND Role = "Remplacant"');
+        $average = $mysql->select('AVG(Performance) as total', 'Participer', 'Where NumLicence = ' . "'$number'" . ' AND Performance is not NULL');
         $average = $average[0]['total'];
         //si null alors 0
         $average = $average == null ? 0 : $average;
-        $participateWon = $mysql->countCols('participer p, Matchs m', 'where m.IDMatch = p.IDMatch 
+        $participateWon = $mysql->countCols('Participer p, Matchs m', 'where m.IDMatch = p.IDMatch 
         AND m.ScoreEquipe > m.ScoreEquipeAdv AND p.NumLicence = ' . "'$number'");
         // if main + replace == 0 then return 0 in parrticipatewon
         $participateWon = $main + $replace == 0 ? 0 : 100 * $participateWon / ($main + $replace);
@@ -43,7 +43,7 @@ class Stats
     public function consecutiveSelections($number): int
     {
         $mysql = DataBase::getInstance();
-        $data = $mysql->select('IdMatch', 'participer', 'where NumLicence = ' . "'$number'" . ' AND Performance is not NULL');
+        $data = $mysql->select('IdMatch', 'Participer', 'where NumLicence = ' . "'$number'" . ' AND Performance is not NULL');
         $consecutive = 0;
         $max = 0;
         for ($i = 0, $iMax = count($data); $i < $iMax; $i++) {
@@ -61,5 +61,3 @@ class Stats
         return $max;
     }
 }
-
-?>
