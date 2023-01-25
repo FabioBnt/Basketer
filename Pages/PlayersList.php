@@ -3,7 +3,20 @@
     include_once "../php/Classes/Players.php";
     $player = new Players();
     $players = $player->selectPlayers();
-    //delete player
+
+    function image($img): string
+    {
+        // img = ../../Images/11111111.png
+        // remove the ../../
+        $img = substr($img, 5);
+        $location = dirname($_SERVER['DOCUMENT_ROOT']);
+        $image = $location . $img;
+
+        return base64_encode(file_get_contents($image));
+    }
+
+
+//delete player
     if(isset($_GET['del'])){
         //checks if a player is concurring in a match or not
         $mysql = DataBase::getInstance();
@@ -41,7 +54,7 @@
     foreach($players as $player){
         echo '<tr>';
             echo '<td class="player-name">';
-                echo "<img src=\"".$player['Photo']."\" alt=\"photo ".$player['Nom']."\"/>";
+                echo '<img src="data:image/png;base64,'.image($player['Photo']).'" alt="photo de profil"/>';
                 echo $player['Nom'].' '.$player['Prenom'];
             echo '</td>';
             echo '<td>'.$player['NumLicence'].'</td>';
