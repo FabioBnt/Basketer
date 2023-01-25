@@ -69,8 +69,8 @@ $none = $numbers[3];
         <p>Pourcentage de matchs nuls : <span id="draw-percentage"><?php echo $tie; ?></span>%</p>
     </div>
     <h2>Joueurs</h2>
-    <table>
-        <tr>
+    <table class="list">
+        <tr class="heading">
             <th>Nom</th>
             <th>Statut</th>
             <th>Poste préféré</th>

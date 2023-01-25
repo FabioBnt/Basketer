@@ -20,6 +20,17 @@ if (isset($_GET['alert'])) {
     echo "<script>alert('".$_GET['alert']."')</script>";
 }
 
+    function image($img): string
+    {
+        // img = ../../Images/11111111.png
+        // remove the ../../
+        $img = substr($img, 5);
+        $location = dirname($_SERVER['DOCUMENT_ROOT']);
+        $image = $location . $img;
+
+        return base64_encode(file_get_contents($image));
+    }
+
 //delete player
 if (isset($_GET['del'])) {
     //checks if a player is concurring in a match or not
@@ -34,13 +45,11 @@ if (isset($_GET['del'])) {
 }
 ?>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Liste Joueurs</title>
 </head>
-
 <body class="list">
     <div class="container">
         <header class="menu">
@@ -77,26 +86,25 @@ if (isset($_GET['del'])) {
         foreach ($players as $player) {
             echo '<tr>';
             echo '<td class="player-name">';
-            echo "<img src=\"" . $player['Photo'] . "\" alt=\"photo " . $player['Nom'] . "\"/>";
-            echo $player['Nom'] . ' ' . $player['Prenom'];
+                echo '<img src="data:image/png;base64,'.image($player['Photo']).'" alt="photo de profil"/>';
+                echo $player['Nom'].' '.$player['Prenom'];
             echo '</td>';
-            echo '<td>' . $player['NumLicence'] . '</td>';
-            echo '<td>' . $player['DateNaiss'] . '</td>';
-            echo '<td>' . $player['Taille'] . '</td>';
-            echo '<td>' . $player['Poids'] . '</td>';
-            echo '<td>' . $player['PostePref'] . '</td>';
-            echo '<td>' . $player['Statut'] . '</td>';
-            echo '<td><a href="PlayerModif.php?number=' . $player['NumLicence'] . '&Nom=' . $player['Nom'] . '&Prenom=' . $player['Prenom'] .
-                '&DateNaiss=' . $player['DateNaiss'] . '&Taille=' . $player['Taille'] . '&Poids=' . $player['Poids'] . '&Poste=' . $player['PostePref'] .
-                '&Status=' . $player['Statut'] . '&Photo=' . $player['Photo'] . '">Modifier</a>
-                  / <a href="PlayersList.php?del=' . $player['NumLicence'] . '">Supprimer</a>
+            echo '<td>'.$player['NumLicence'].'</td>';
+            echo '<td>'.$player['DateNaiss'].'</td>';
+            echo '<td>'.$player['Taille'].'</td>';
+            echo '<td>'.$player['Poids'].'</td>';
+            echo '<td>'.$player['PostePref'].'</td>';
+            echo '<td>'.$player['Statut'].'</td>';
+            echo '<td><a href="PlayerModif.php?number='.$player['NumLicence'].'&Nom='.$player['Nom'].'&Prenom='.$player['Prenom'].
+                '&DateNaiss='.$player['DateNaiss'].'&Taille='.$player['Taille'].'&Poids='.$player['Poids'].'&Poste='.$player['PostePref'].
+                '&Status='.$player['Statut'].'&Photo='.$player['Photo'].'">Modifier</a>
+                  / <a href="PlayersList.php?del='.$player['NumLicence'].'">Supprimer</a>
                 </td>';
-            echo '</tr>';
-        }
-        ?>
-        <button class="custom-btn btn-3" onclick="location.href='PlayerCreate.php'"><span>Créer Joueur</span></button>
-    </table>
+        echo '</tr>';
+    }
+    ?>
+    <button class="custom-btn btn-3" onclick="location.href='PlayerCreate.php'"><span>Créer Joueur</span></button>
+</table>
 
 </body>
-
 </html>
