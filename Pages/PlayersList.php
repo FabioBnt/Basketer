@@ -5,8 +5,16 @@
     $players = $player->selectPlayers();
     //delete player
     if(isset($_GET['del'])){
+        //checks if a player is concurring in a match or not
+        $mysql = DataBase::getInstance();
+        if(count($mysql->select('count(*)', 'Participer', 'where NumLicence = '.$_GET['del'])) > 0){
+            header('Location:./PlayersList.php');
+            echo '<script>alert("Impossible de supprimer ce joueur car il est inscrit dans un match")</script>';
+            exit;
+        }
         $player->deletePlayer($_GET['del']);
         header('Location:./PlayersList.php');
+        echo '<script>alert("Joueur supprimé")</script>';
         exit;
     }
 ?>

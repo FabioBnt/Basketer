@@ -9,7 +9,6 @@
             rgb(85, 100, 177) 0%,
             rgb(58, 84, 187) 50%
     );
-    font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -126,7 +125,6 @@ input[type="submit"]:hover, input[type="reset"]:hover {
     font-size: 0.875rem;
     color: #666;
     background: #eee;
-    /*  以下２行で見出しを固定  */
     position: sticky;
     top: 0;
 }
@@ -138,7 +136,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
     margin-bottom: 0.5rem;
 }
 
-/* レスポンシブ対応 */
+
 @media (max-width: 500px) {
     .heading {
         display: none;
@@ -302,6 +300,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
     padding: 0;
     text-align: center;
     margin: 20px auto;
+    font-family: Verdana sans-serif;
 }
 
 .container {

@@ -3,24 +3,28 @@ include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Matchs.php";
 if (isset($_POST['submit'])) {
     $match = new Matchs();
+    $iDMatch = $_POST['IDMatch'];
     $date = $_POST['date'];
-    $match->modifyMatches($date, 'DateM', $date);
+    $match->modifyMatches($iDMatch, 'DateM', $date);
     $opposingTeamName = $_POST['opposingTeamName'];
-    $match->modifyMatches($date, 'NomEquipeAdv', $opposingTeamName);
+    $match->modifyMatches($iDMatch, 'NomEquipeAdv', $opposingTeamName);
     $location = $_POST['location'];
-    $match->modifyMatches($date, 'Lieu', $location);
+    $match->modifyMatches($iDMatch, 'Lieu', $location);
     $score = $_POST['score'];
-    $match->modifyMatches($date, 'ScoreEquipe', $score);
+    $match->modifyMatches($iDMatch, 'ScoreEquipe', $score);
     $opposingScore = $_POST['opposingScore'];
-    $match->modifyMatches($date, 'ScoreEquipeAdv', $opposingScore);
-    header('Location: ../Pages/MatchModif.php');
+    $match->modifyMatches($iDMatch, 'ScoreEquipeAdv', $opposingScore);
+    echo "<script>alert('Match modifié avec succès')</script>";
+    //wait 3 seconds before redirecting
+    header('Refresh: 3; URL=../Pages/MatchList.php');
     exit;
 }
 if (!isset($_GET['IDMatch'])) {
     echo "<script>alert('Aucun match sélectionné')</script>";
-    header('Location: ../Pages/MatchList.php');
+    header('Refresh: 3; URL=../Pages/MatchList.php');
     exit;
 }
+$iDMatch = $_GET['IDMatch'];
 $date = $_GET['DateM'];
 $opposingTeamName = $_GET['NomEquipeAdv'];
 $location = $_GET['LieuMatch'];
@@ -40,6 +44,7 @@ $opposingScore = $_GET['ScoreEquipeAdv'];
 <div class="containerM">
     <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
         <h3>Modifier match du <?php echo $_GET['DateM']; ?></h3>
+        <input type="hidden" name="IDMatch" value="<?php echo $iDMatch; ?>">
         <label for="date">Date du match</label>
         <input type="date" name="date" id="date" value="<?php echo $date; ?>">
         <label for="opposingTeamName">Nom de l'équipe adverse</label>

@@ -51,7 +51,7 @@ class Matchs
     {
         $mysql = DataBase::getInstance();
         try {
-            $mysql->modifyCol('Matchs', 'IdMatch', $id, $nameCol, $value);
+            $mysql->modifyCol('Matchs', 'IDMatch', $id, $nameCol, $value);
         } catch (Exception $e) {
             $e->getMessage();
         }
