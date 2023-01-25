@@ -524,20 +524,6 @@ fieldset {
 }
 
 /* ? Statistics Page */
-.body-stats table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.body-stats th, td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: left;
-}
-
-.body-stats th {
-  background-color: #f2f2f2;
-}
 
 .score {
   text-align: center;
