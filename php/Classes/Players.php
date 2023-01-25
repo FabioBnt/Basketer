@@ -97,6 +97,3 @@ $player->insertPlayer('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m
 echo $player->modifyPlayer('111111111', 'Photo', '');
 print_r($player->selectPlayers('111111111', 'Wembanyama', 'Victor', '', '2004-01-04', '2m19', '104kg', 'Ailier fort', 'Actif'));
 */
-
-
-?>

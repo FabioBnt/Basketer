@@ -29,7 +29,7 @@ class Participants
         $conds = substr($conds, 0, -4);
         $mysql = DataBase::getInstance();
         $data = array();
-        $data = $mysql->select('*', 'participer', $conds);
+        $data = $mysql->select('*', 'Participer', $conds);
         // make NumLicence the key of array of $data and return it
         $data = array_combine(array_column($data, 'NumLicence'), $data);
         //if false return array() else return value
@@ -46,7 +46,7 @@ class Participants
         try{
             $mysql = DataBase::getInstance();
             $values = array($number, $this->idMatch, $performance, $role, $comments);
-            $mysql->insert('`participer` (`NumLicence`, `IDMatch`, `Performance`, `Role`, `Commentaire`)', $values);
+            $mysql->insert('`Participer` (`NumLicence`, `IDMatch`, `Performance`, `Role`, `Commentaire`)', $values);
         }catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -66,15 +66,15 @@ class Participants
     public function deleteParticipant($idPlayer): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('participer','NumLicence', $idPlayer, 'IdMatch', $this->idMatch);
+        $mysql->deleteCol('Participer','NumLicence', $idPlayer, 'IdMatch', $this->idMatch);
     }
     public function deleteAllParticipant(): void
     {
         $mysql = DataBase::getInstance();
-        $mysql->deleteCol('participer','IdMatch', $this->idMatch);
+        $mysql->deleteCol('Participer','IdMatch', $this->idMatch);
     }
     public function numberOfParticipants(){
         $mysql = DataBase::getInstance();
-        return $mysql->countCols('participer', 'where IdMatch = '.$this->idMatch);
+        return $mysql->countCols('Participer', 'where IdMatch = '.$this->idMatch);
     }
 }

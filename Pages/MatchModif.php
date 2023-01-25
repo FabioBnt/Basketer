@@ -33,6 +33,7 @@ $opposingScore = $_GET['ScoreEquipeAdv'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,23 +41,39 @@ $opposingScore = $_GET['ScoreEquipeAdv'];
     <link rel="stylesheet" href="../css/style.css">
     <title>Modifier un match</title>
 </head>
+
 <body>
-<div class="containerM">
-    <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-        <h3>Modifier match du <?php echo $_GET['DateM']; ?></h3>
-        <input type="hidden" name="IDMatch" value="<?php echo $iDMatch; ?>">
-        <label for="date">Date du match</label>
-        <input type="date" name="date" id="date" value="<?php echo $date; ?>">
-        <label for="opposingTeamName">Nom de l'équipe adverse</label>
-        <input type="text" name="opposingTeamName" id="opposingTeamName" value="<?php echo $opposingTeamName; ?>">
-        <label for="location">Lieu du match</label>
-        <input type="text" name="location" id="location" value="<?php echo $location; ?>">
-        <label for="score">Score de l'équipe</label>
-        <input type="number" min="0" name="score" id="score" value="<?php echo $score; ?>"><br>
-        <label for="opposingScore">Score de l'équipe adverse</label>
-        <input type="number" min="0" name="opposingScore" id="opposingScore" value="<?php echo $opposingScore; ?>">
-        <input type="submit" name="submit" value="Modifier">
-    </form>
-</div>
+    <div class="container">
+        <header class="menu">
+            <div class="logo">
+            </div>
+            <nav class="menu" role='navigation'>
+                <ol>
+                    <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                    <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
+                    <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
+                    <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                </ol>
+            </nav>
+        </header>
+    </div>
+    <div class="containerM">
+        <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <h3>Modifier match du <?php echo $_GET['DateM']; ?></h3>
+            <input type="hidden" name="IDMatch" value="<?php echo $iDMatch; ?>">
+            <label for="date">Date du match</label>
+            <input type="date" name="date" id="date" value="<?php echo $date; ?>">
+            <label for="opposingTeamName">Nom de l'équipe adverse</label>
+            <input type="text" name="opposingTeamName" id="opposingTeamName" value="<?php echo $opposingTeamName; ?>">
+            <label for="location">Lieu du match</label>
+            <input type="text" name="location" id="location" value="<?php echo $location; ?>">
+            <label for="score">Score de l'équipe</label>
+            <input type="number" min="0" name="score" id="score" value="<?php echo $score; ?>"><br>
+            <label for="opposingScore">Score de l'équipe adverse</label>
+            <input type="number" min="0" name="opposingScore" id="opposingScore" value="<?php echo $opposingScore; ?>">
+            <input type="submit" name="submit" value="Modifier">
+        </form>
+    </div>
 </body>
+
 </html>

@@ -12,8 +12,17 @@ include_once "../php/Classes/Players.php";
 include_once "../php/Classes/Participants.php";
 
 $player = new Players();
-$players = $player->selectPlayers("","","",
-    "","","", "", "",'Actif');
+$players = $player->selectPlayers(
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    'Actif'
+);
 // needs the id of match as GET of name match to function
 /**
  * @param $player
@@ -46,17 +55,15 @@ function displayPlayers($player, string $selected, $role, $comments, $evaluation
     echo '</tr>';
 }
 
-if(isset($_GET['match']) || isset($_POST['match'])){
+if (isset($_GET['match']) || isset($_POST['match'])) {
     $match = $_GET['match'] ?? $_POST['match'];
     $participants = new Participants($match);
     $participant = $participants->selectParticipants();
-    if(isset($_POST['selected'])) {
+    if (isset($_POST['selected'])) {
         $selected = $_POST['selected'];
 
         if (count($selected) > 13 && count($selected) < 8) {
             echo '<script>alert("Il faut au moins 8 joueurs et au maximum 13")</script>';
-
-
         } // check if the number of tatitulaires equals to 5
         $titulaires = 0;
         if (count($selected) > 5) {
@@ -69,77 +76,93 @@ if(isset($_GET['match']) || isset($_POST['match'])){
                 echo '<script>alert("Il faut 5 titulaires")</script>';
             }
         }
-        if($titulaires == 5 && count($selected) > 7 && count($selected) < 14) {
+        if ($titulaires == 5 && count($selected) > 7 && count($selected) < 14) {
             $participants->deleteAllParticipant($match);
             foreach ($selected as $player) {
-                $participants->insertParticipant($player, $_POST['evaluation'.$player],$_POST['role' . $player],$_POST['comments' . $player]);
+                $participants->insertParticipant($player, $_POST['evaluation' . $player], $_POST['role' . $player], $_POST['comments' . $player]);
             }
             //send that the modifcation was a success
             header('Location:./MatchList.php?alertMessage=Les modifications ont été enregistrées');
             exit();
         }
-
     }
 
 ?>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Liste Joueurs</title>
-</head>
-<body class="list">
-<h1>Fiche de match</h1>
-<form action="<?php echo $_SERVER['PHP_SELF'];?> " method="POST">
-<table>
-    <tr class="heading">
-        <th>Choix</th>
-        <th>Joueur</th>
-        <th>Numero Licence</th>
-        <th>Date de naissance</th>
-        <th>Taille</th>
-        <th>Poids</th>
-        <th>Poste preferé</th>
-        <th>Statut</th>
-        <th>Role</th>
-        <th>Comments</th>
-        <th>Evaluation</th>
-    </tr>
-    <?php
-    foreach($players as $player){
-        $selected = '';
-        $role = '';
-        $comments = '';
-        $evaluation = '';
-        // one of the two must be true
-        if(isset($_GET['match']) && isset($participant[$player['NumLicence']])){
-            $selected = 'checked';
-            $role = $participant[$player['NumLicence']]['Role'];
-            $comments = $participant[$player['NumLicence']]['Commentaire'];
-            $evaluation = $participant[$player['NumLicence']]['Performance'];
-        }
-        // meme pour if(isset($_POST['selected'])) {
-        //        $selected = $_POST['selected'];
-        if(isset($_POST['selected']) && in_array(($player['NumLicence'] - '0'), $_POST['selected'])){
-            $selected = 'checked';
-            $role = $_POST['role'.$player['NumLicence']];
-            $comments = $_POST['comments'.$player['NumLicence']];
-            $evaluation = $_POST['evaluation'.$player['NumLicence']];
-        }
-        displayPlayers($player, $selected, $role, $comments, $evaluation);
-    }
-    //hidden input match
-    echo '<input type="hidden" name="match" value="'.$match.'">';
-    ?>
-</table>
-    <input type="reset" name="reset" value="Defaut">
-    <input type="submit" name="submit" value="Valider">
-</form>
+    <html lang="fr">
 
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Liste Joueurs</title>
+    </head>
+
+    <body class="list">
+        <div class="container">
+            <header class="menu">
+                <div class="logo">
+                </div>
+                <nav class="menu" role='navigation'>
+                    <ol>
+                        <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                        <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
+                        <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
+                        <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                    </ol>
+                </nav>
+            </header>
+        </div>
+        <h1>Fiche de match</h1>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?> " method="POST">
+            <table>
+                <tr class="heading">
+                    <th>Choix</th>
+                    <th>Joueur</th>
+                    <th>Numero Licence</th>
+                    <th>Date de naissance</th>
+                    <th>Taille</th>
+                    <th>Poids</th>
+                    <th>Poste preferé</th>
+                    <th>Statut</th>
+                    <th>Role</th>
+                    <th>Comments</th>
+                    <th>Evaluation</th>
+                </tr>
+                <?php
+                foreach ($players as $player) {
+                    $selected = '';
+                    $role = '';
+                    $comments = '';
+                    $evaluation = '';
+                    // one of the two must be true
+                    if (isset($_GET['match']) && isset($participant[$player['NumLicence']])) {
+                        $selected = 'checked';
+                        $role = $participant[$player['NumLicence']]['Role'];
+                        $comments = $participant[$player['NumLicence']]['Commentaire'];
+                        $evaluation = $participant[$player['NumLicence']]['Performance'];
+                    }
+                    // meme pour if(isset($_POST['selected'])) {
+                    //        $selected = $_POST['selected'];
+                    if (isset($_POST['selected']) && in_array(($player['NumLicence'] - '0'), $_POST['selected'])) {
+                        $selected = 'checked';
+                        $role = $_POST['role' . $player['NumLicence']];
+                        $comments = $_POST['comments' . $player['NumLicence']];
+                        $evaluation = $_POST['evaluation' . $player['NumLicence']];
+                    }
+                    displayPlayers($player, $selected, $role, $comments, $evaluation);
+                }
+                //hidden input match
+                echo '<input type="hidden" name="match" value="' . $match . '">';
+                ?>
+            </table>
+            <input type="reset" name="reset" value="Defaut">
+            <input type="submit" name="submit" value="Valider">
+        </form>
+
+    </body>
+
+    </html>
 <?php
-}else{
+} else {
     //send that a selection of a match is required
     header('Location:./MatchList.php?alertMessage=Veuillez selectionner un match avant de saisir la fiche de match');
     exit;

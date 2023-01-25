@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,43 +27,59 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../css/style.css">
     <title>Créer un match</title>
 </head>
+
 <body>
-<div class="containerM">
-    <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-        <h3>Creer match</h3>
-        <fieldset>
-            <label>
-                Date &emsp;
-                <input placeholder="Date" type="date" name="date" required autofocus>
-            </label>
-        </fieldset>
-        <fieldset>
-            <label>
-                Lieu &emsp;
-                <input placeholder="Lieu" type="text" name="place" required>
-            </label>
-        </fieldset>
-        <fieldset>
-            <label>
-                Equipe Visiteur &emsp;
-                <input placeholder="Equipe Visiteur" type="text" name="awayTeam" required>
-            </label>
-        </fieldset>
-        <fieldset>
-            <label>
-                Score Domicile &emsp;
-                <input placeholder="Score Domicile" type="number" min="0" name="homeScore" required>
-            </label>
-        </fieldset>
-        <fieldset>
-            <label>
-                Score Visiteur &emsp;
-                <input placeholder="Score Visiteur" type="number" min="0" name="awayScore" required>
-            </label>
-        </fieldset>
-        <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Creer</button>
-        </fieldset>
-    </form>
+    <div class="container">
+        <header class="menu">
+            <div class="logo">
+            </div>
+            <nav class="menu" role='navigation'>
+                <ol>
+                    <li class="menu-item"><a href="./home.html">Accueil</a></li>
+                    <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
+                    <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
+                    <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                </ol>
+            </nav>
+        </header>
+    </div>
+    <div class="containerM">
+        <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <h3>Créer un match</h3>
+            <fieldset>
+                <label>
+                    Date &emsp;
+                    <input placeholder="Date" type="date" name="date" required autofocus>
+                </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    Lieu &emsp;
+                    <input placeholder="Lieu" type="text" name="place" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    Equipe Visiteur &emsp;
+                    <input placeholder="Equipe Visiteur" type="text" name="awayTeam" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    Score Domicile &emsp;
+                    <input placeholder="Score Domicile" type="number" min="0" name="homeScore" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    Score Visiteur &emsp;
+                    <input placeholder="Score Visiteur" type="number" min="0" name="awayScore" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Créer</button>
+            </fieldset>
+        </form>
 </body>
+
 </html>
