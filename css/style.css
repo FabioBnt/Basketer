@@ -25,6 +25,11 @@
 *{
   font-family: "Open Sans", sans-serif;
 }
+
+#disconnect{
+  background-color: #9f0505;
+}
+
 #index {
   background: #1c56dee7; /* fallback for old browsers */
   background: rgba(30, 81, 209, 0.911);

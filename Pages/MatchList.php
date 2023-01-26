@@ -49,10 +49,10 @@ if (isset($_GET['del'])) {
                     <li class="menu-item"><a href="Home.php">Accueil</a></li>
                     <li class="menu-item"><a href="./PlayersList.php">Liste des joueurs</a></li>
                     <li class="menu-item"><a href="./MatchList.php">Liste des matchs</a></li>
-                    <li class="menu-item"><a href="./Statstics.php">Statistiques</a></li>
+                    <li class="menu-item"><a href="Statistics.php">Statistiques</a></li>
                     <?php
                     if ($_SESSION['logged']) {
-                        echo '<li class="menu-item"><a href="./Home.php?logout=true">Déconnexion</a></li>';
+                        echo '<li class="menu-item" id="disconnect"><a href="./Home.php?logout=true">Déconnexion</a></li>';
                     }
                     ?>
                 </ol>
