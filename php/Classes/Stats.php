@@ -45,13 +45,13 @@ class Stats
     public function consecutiveSelections($number): int
     {
         $mysql = DataBase::getInstance();
-        $data = $mysql->select('IdMatch', 'Participer', 'where NumLicence = ' . "'$number'" . ' AND Performance is not NULL');
+        $data = $mysql->select('IDMatch', 'Participer', 'where NumLicence = ' . "'$number'" . ' AND Performance != 0 ORDER BY IDMatch');
         $consecutive = 0;
         $max = 0;
         for ($i = 0, $iMax = count($data); $i < $iMax; $i++) {
             if ($i === 0) {
                 $consecutive++;
-            } else if ($data[$i]['IdMatch'] === $data[$i - 1]['IdMatch'] + 1) {
+            } else if ($data[$i]['IDMatch'] == ($data[$i - 1]['IDMatch'] + 1)) {
                 $consecutive++;
             } else {
                 if ($consecutive > $max) {
@@ -59,6 +59,9 @@ class Stats
                 }
                 $consecutive = 1;
             }
+        }
+        if ($consecutive > $max) {
+            $max = $consecutive;
         }
         return $max;
     }
