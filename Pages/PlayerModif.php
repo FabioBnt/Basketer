@@ -15,7 +15,8 @@ if(isset($_GET['logout']) && $_GET['logout']){
 if (isset($_POST['number'])) {
     $player = new Players();
     $number = $_POST['number'];
-    $player->modifyPlayer($number, 'NumLicence', $number);
+    $oldNumber = $_POST['oldnumber'];
+    $player->modifyPlayer($oldNumber, 'NumLicence', $number);
     $familyName = $_POST['familyName'];
     $player->modifyPlayer($number, 'Nom', $familyName);
     $name = $_POST['name'];
@@ -31,6 +32,12 @@ if (isset($_POST['number'])) {
     $status = $_POST['status'];
     $player->modifyPlayer($number, 'Statut', $status);
     //print_r($_POST);
+    if($oldNumber != $number){
+        $imgPath = $player->selectPlayers($oldNumber)[0]['Photo'];
+        if (file_exists($imgPath)) {
+            unlink($imgPath);
+        }
+    }
     if (isset($_FILES['photo'])) {
         $image = $_FILES['photo'];
         $temp = explode('.', $image['name']);
@@ -93,6 +100,8 @@ if (!isset($_GET['number'])) {
         </div>
         <div class="containerM">
             <form id="modif" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                <!--hidden number before the form-->
+                <input type="hidden" name="oldnumber" value="<?php echo $num; ?>">
                 <h3>Modifier joueur <?php echo $nom; ?></h3>
                 <fieldset>
                     Numero Licence<input placeholder="Numero Licence" type="text" name="number" value="<?php echo $num; ?>" required autofocus>

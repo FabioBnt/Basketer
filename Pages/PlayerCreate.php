@@ -80,7 +80,7 @@ if (isset($_POST['number'])) {
                 Prenom &emsp;<input placeholder="Prenom" type="text" name="name" required>
             </fieldset>
             <fieldset>
-                <label for="imageUpload">Changer Image (vide sinon)</label>
+                <label for="imageUpload">Image </label>
                 <input placeholder="Selectionner Image" type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" name="photo" required>
             </fieldset>
             <fieldset>
