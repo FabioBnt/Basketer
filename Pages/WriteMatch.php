@@ -49,7 +49,7 @@ function displayPlayers($player, string $selected, $role, $comments, $evaluation
     echo '<tr>';
     echo '<td><input type="checkbox" name="selected[]" value="' . $player['NumLicence'] . '" ' . $selected . '></td>';
     echo '<td class="player-name">';
-    echo "<img src=\"" . $player['Photo'] . "\" alt=\"photo " . $player['Nom'] . "\"/>";
+    echo '<img src="data:image/png;base64,'. Images::image($player['Photo']) .'" alt="photo de profil"/>';
     echo $player['Nom'] . ' ' . $player['Prenom'];
     echo '</td>';
     echo '<td>' . $player['NumLicence'] . '</td>';
@@ -62,7 +62,7 @@ function displayPlayers($player, string $selected, $role, $comments, $evaluation
                 <option value="Titulaire" ' . ($role === 'Titulaire' ? 'selected' : '') . '>Titulaire</option> 
                 <option value="Remplaçant" ' . ($role === 'Remplaçant' || $role === 'Remplacant' ? 'selected' : '') . '>Remplaçant</option> 
                 </select></td>';
-    echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="30" rows="10"> ' . $comments . ' </textarea></td>';
+    echo '<td><textarea name="comments' . $player['NumLicence'] . '" cols="20" rows="5"> ' . $comments . ' </textarea></td>';
     echo '<td><input type="number" name="evaluation' . $player['NumLicence'] . '" value="' . $evaluation . '" min="0"></td>';
     echo '</tr>';
 }
