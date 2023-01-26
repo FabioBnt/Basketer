@@ -13,6 +13,7 @@ if (isset($_GET['logout']) && $_GET['logout']) {
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Stats.php";
 include_once "../php/Classes/Players.php";
+include_once '../php/Classes/Images.php';
 //Le nombre total et le pourcentage de matchs gagnés, perdus, ou nuls.
 // Un tableau avec pour chaque joueur : son statut actuel, son poste préféré,
 // le nombre total de sélections en tant que titulaire, le nombre total de sélections
@@ -45,6 +46,7 @@ $none = $numbers[3];
     <div class="container">
         <header class="menu">
             <div class="logo">
+                <?php Images::logo(); ?>
             </div>
             <nav class="menu" role='navigation'>
                 <ol>

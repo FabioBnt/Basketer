@@ -21,6 +21,7 @@ if (isset($_GET['logout']) && $_GET['logout']) {
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Players.php";
 include_once "../php/Classes/Participants.php";
+include_once '../php/Classes/Images.php';
 
 $player = new Players();
 $players = $player->selectPlayers(
@@ -111,6 +112,7 @@ if (isset($_GET['match']) || isset($_POST['match'])) {
         <div class="container">
             <header class="menu">
                 <div class="logo">
+                    <?php Images::logo(); ?>
                 </div>
                 <nav class="menu" role='navigation'>
                     <ol>

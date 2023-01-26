@@ -1,6 +1,7 @@
 <?php
 include_once "../php/Classes/DataBase.php";
 include_once "../php/Classes/Matchs.php";
+include_once '../php/Classes/Images.php';
 session_start();
 if(!isset($_SESSION['logged'])){
     header('Location:../index.php');
@@ -43,6 +44,7 @@ if (isset($_POST['submit'])) {
     <div class="container">
         <header class="menu">
             <div class="logo">
+                <?php Images::logo(); ?>
             </div>
             <nav class="menu" role='navigation'>
                 <ol>

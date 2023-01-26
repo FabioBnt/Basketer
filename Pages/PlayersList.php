@@ -1,4 +1,7 @@
 <?php
+
+include_once '../php/Classes/Images.php';
+
 session_start();
 if (!isset($_SESSION['logged'])) {
     header('Location:../index.php');
@@ -64,6 +67,7 @@ if (isset($_GET['del'])) {
     <div class="container">
         <header class="menu">
             <div class="logo">
+                <?php Images::logo(); ?>
             </div>
             <nav class="menu" role='navigation'>
                 <ol>
@@ -96,7 +100,7 @@ if (isset($_GET['del'])) {
         foreach ($players as $player) {
             echo '<tr>';
             echo '<td class="player-name">';
-                echo '<img src="data:image/png;base64,'.image($player['Photo']).'" alt="photo de profil"/>';
+                echo '<img src="data:image/png;base64,'. Images::image($player['Photo']) .'" alt="photo de profil"/>';
                 echo $player['Nom'].' '.$player['Prenom'];
             echo '</td>';
             echo '<td>'.$player['NumLicence'].'</td>';

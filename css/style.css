@@ -319,12 +319,11 @@ input[type="reset"]:hover {
 
 /*Resize the logo to fit the header*/
 .logo {
-  background-image: url("../../Images/logo.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
   width: 15%;
-  height: 75px;
+}
+.logo img {
+  width: 90px;
+  height: 90px;
 }
 
 /* Stylise home-title */

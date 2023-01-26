@@ -1,4 +1,6 @@
 <?php
+
+include_once '../php/Classes/Images.php';
 include_once '../php/Classes/Stats.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -42,6 +44,7 @@ $none = $numbers[3];
 <div class="container">
     <header class="menu">
         <div class="logo">
+            <?php Images::logo(); ?>
         </div>
         <nav class="menu" role='navigation'>
             <ol>
