@@ -1,9 +1,10 @@
 <?php
-
+include_once '../php/Classes/DataBase.php';
 class Stats
 {
     // returns total of matchs, matchs won, matchs tied, matchs loss, matchs not yet played
-    public function totalWinTieLossNull(){
+    public function totalWinTieLossNull(): array
+    {
         $mysql = DataBase::getInstance();
         $total = $mysql->countCols('Matchs');
         $win = $mysql->countCols('Matchs', 'where ScoreEquipe > ScoreEquipeAdv');
@@ -13,7 +14,8 @@ class Stats
         return array($total, $win, $tie, $loss, $none);   
     }
     // returns win rate, tie rate, loss rate
-    public function percentagesWinTieLossNull(){
+    public function percentagesWinTieLossNull(): array
+    {
         $totals = $this->totalWinTieLossNull();
         // if totals[0] == 0 then return 0
         $win = $totals[0] == 0 ? 0 : 100 * $totals[1] / $totals[0];

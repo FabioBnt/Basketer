@@ -1,12 +1,30 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 @font-face {
-  font-family: 'Verdana';
-  src: url('https://fonts.googleapis.com/css2?family=Verdana');
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 
 
 
 /*? ALL */
+*{
+  font-family: "Open Sans", sans-serif;
+}
 #index {
   background: #1c56dee7; /* fallback for old browsers */
   background: rgba(30, 81, 209, 0.911);
@@ -43,7 +61,6 @@ body {
 }
 
 .form input {
-  font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -55,7 +72,6 @@ body {
 }
 
 .form button {
-  font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #4caf50;
@@ -72,7 +88,6 @@ body {
 
 input[type="submit"],
 input[type="reset"] {
-  font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #4caf50;
@@ -133,7 +148,7 @@ input[type="reset"]:hover {
 }
 
 .list th {
-  font-weight: normal;
+  font-weight: bold;
   font-size: 0.875rem;
   color: #666;
   background: #eee;
@@ -148,9 +163,9 @@ input[type="reset"]:hover {
   margin-bottom: 0.5rem;
 }
 .list th, .list td {
-    font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 16px;
 }
+
 
 
 @media (max-width: 500px) {
@@ -170,8 +185,10 @@ input[type="reset"]:hover {
 
 .list h1 {
   text-align: center;
-  font-size: 2.5rem;
-  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 50px;
+  font-weight: bold;
+  color: #0a345d;
+  font-size: xx-large;
 }
 
 /*? Menu Page*/
@@ -186,7 +203,6 @@ input[type="reset"]:hover {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-family: "Orbitron", sans-serif;
 }
 
 .menu ol {
@@ -203,7 +219,9 @@ input[type="reset"]:hover {
 .menu-item {
   background: #0b447b;
   position: relative;
-  border-bottom: 5px solid #999;
+  font-weight: bold;
+  font-style: oblique;
+  border-bottom: 5px solid #ffffff;
   margin: 0 20px;
   transition: border-bottom 0.23s ease-in-out, background 0.23s linear;
   cursor: pointer;
@@ -286,13 +304,16 @@ input[type="reset"]:hover {
 .speech {
   position: relative;
   justify-content: center;
+  width: fit-content;
   align-items: center;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #efebe5;
+  border-radius: 8px;
+  border: rgba(72, 71, 71, 0.83) solid 1px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: auto;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
 
@@ -308,13 +329,12 @@ input[type="reset"]:hover {
 
 /* Stylise home-title */
 .home-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: xxx-large;
+  font-weight: bolder;
   color: #0b447b;
   padding: 0;
   text-align: center;
   margin: 20px auto;
-  font-family: Verdana sans-serif;
 }
 
 .container {
@@ -438,7 +458,6 @@ fieldset {
   color: #fff;
   border-radius: 5px;
   padding: 10px 25px;
-  font-family: "Lato", sans-serif;
   font-weight: 500;
   background: transparent;
   cursor: pointer;
@@ -531,9 +550,46 @@ fieldset {
 /* ? Statistics Page */
 
 .score {
+  position: relative;
+  justify-content: center;
+  width: fit-content;
+  align-items: center;
+  background: #efebe5;
+  border-radius: 8px;
+  border: rgba(72, 71, 71, 0.83) solid 1px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: auto;
+  font-size: large;
+  font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
 
 .percentage {
   text-align: right;
+}
+
+.body-stats h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+    color: #0a345d;
+    margin-bottom: 50px;
+}
+
+.body-stats h2{
+  text-align: center;
+  margin-top: 50px;
+  font-weight: bold;
+}
+
+/* ? Players List Page */
+.title-Players{
+  text-align: center;
+  margin-top: 50px;
+  font-weight: bold;
+  color: #0a345d;
+}
+.body-stats table{
+  width: 100%;
 }

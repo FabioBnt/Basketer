@@ -80,7 +80,7 @@ if (isset($_GET['del'])) {
             </nav>
         </header>
     </div>
-    <h1>Liste des joueurs de l'équipe</h1>
+    <h1 class="title-Players">Liste des joueurs de l'équipe</h1>
     <table>
         <tr class="heading">
             <th>Joueur</th>
@@ -101,8 +101,8 @@ if (isset($_GET['del'])) {
             echo '</td>';
             echo '<td>'.$player['NumLicence'].'</td>';
             echo '<td>'.$player['DateNaiss'].'</td>';
-            echo '<td>'.$player['Taille'].'</td>';
-            echo '<td>'.$player['Poids'].'</td>';
+            echo '<td>'.$player['Taille'].'m</td>';
+            echo '<td>'.$player['Poids'].'kg</td>';
             echo '<td>'.$player['PostePref'].'</td>';
             echo '<td>'.$player['Statut'].'</td>';
             echo '<td><a href="PlayerModif.php?number='.$player['NumLicence'].'&Nom='.$player['Nom'].'&Prenom='.$player['Prenom'].

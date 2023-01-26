@@ -1,4 +1,5 @@
 <?php
+include_once '../php/Classes/Stats.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -14,6 +15,15 @@ if (isset($_GET['logout']) && $_GET['logout']) {
     header('Location:../index.php');
     exit;
 }
+$stats = new Stats();
+//get total matchs
+$numbers = $stats->totalWinTieLossNull();
+$total = $numbers[0];
+$numbers = $stats->percentagesWinTieLossNull();
+$win = $numbers[0];
+$tie = $numbers[1];
+$loss = $numbers[2];
+$none = $numbers[3];
 ?>
 
 
@@ -52,10 +62,16 @@ if (isset($_GET['logout']) && $_GET['logout']) {
     <h1 class="home-title">Basketer</h1>
     <!-- Speech court présentant le site facilitant la sélection des joueurs pour les matchs de Basketball à venir -->
     <div class="speech">
-        <p>Ce site a pour but de faciliter la sélection des joueurs pour les matchs de
-            Basketball à venir.</p>
-        <p>Il permet de consulter la liste des joueurs et de sélectionner ceux qui participeront au match et vice
+        <p>Bienvenue sur notre site !</p>
+        <p>Il a pour but de faciliter la sélection des joueurs pour les matchs de
+            Basketball à venir,</p>
+        <p>Ainsi que de consulter la liste des joueurs et de sélectionner ceux qui participeront au match et vice
             versa.</p>
+    </div>
+    <div class="stats-home">
+        <?php
+
+        ?>
     </div>
 </div>
 
