@@ -39,6 +39,16 @@ if (isset($_GET['del'])) {
         header('Location:./PlayersList.php?alert="Impossible de supprimer ce joueur car il est inscrit dans un match"');
         exit;
     }
+    // $newfilename = '../../Images/' . $number . '.' . end($temp);
+    // move_uploaded_file($image['tmp_name'], $newfilename);
+    // delete the image in the folder Images if it exists
+    $imgPath = $player->selectPlayers($_GET['del'])[0]['Photo'];
+    if (file_exists($imgPath)) {
+        unlink($imgPath);
+    }
+
+
+
     $player->deletePlayer($_GET['del']);
     header('Location:./PlayersList.php?alert="Joueur supprimé"');
     exit;
