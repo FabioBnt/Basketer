@@ -66,9 +66,9 @@ $none = $numbers[3];
     <h1>Statistiques d'équipe</h1>
     <div class="score">
         <p>Nombre total de matchs : <span id="total-matches"><?php echo $total; ?> </span></p>
-        <p>Pourcentage de matchs gagnés : <span id="win-percentage"><?php echo $win; ?></span>%</p>
-        <p>Pourcentage de matchs perdus : <span id="loss-percentage"><?php echo $loss; ?></span>%</p>
-        <p>Pourcentage de matchs nuls : <span id="draw-percentage"><?php echo $tie; ?></span>%</p>
+        <p>Pourcentage de matchs gagnés : <span id="win-percentage"><?php echo number_format($win, 2); ?></span>%</p>
+        <p>Pourcentage de matchs perdus : <span id="loss-percentage"><?php echo number_format($loss, 2); ?></span>%</p>
+        <p>Pourcentage de matchs nuls : <span id="draw-percentage"><?php echo number_format($tie, 2); ?></span>%</p>
     </div>
     <h2>Liste des joueurs</h2>
     <table class="list">
@@ -96,8 +96,8 @@ $none = $numbers[3];
                 <td><?php echo $player['PostePref']; ?></td>
                 <td><?php echo $playerStats[0]; ?></td>
                 <td><?php echo $playerStats[1]; ?></td>
-                <td><?php echo $playerStats[2]; ?></td>
-                <td><?php echo $playerStats[3]; ?>%</td>
+                <td><?php echo number_format($playerStats[2],2); ?></td>
+                <td><?php echo number_format($playerStats[3], 2); ?>%</td>
                 <td><?php echo $consecutive; ?></td>
             </tr>
         <?php
