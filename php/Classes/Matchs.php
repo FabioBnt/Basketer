@@ -40,7 +40,7 @@ class Matchs
     public function insertMatch($date, $opposingTeamName, $location, $score, $opposingScore): void
     {
         if (count($this->selectMatches($date, $opposingTeamName, $location, $score, $opposingScore)) > 0) {
-            throw new Exception('Match already exists in our database');
+            throw new RuntimeException('Ce match existe déjà');
         }
         $mysql = DataBase::getInstance();
         $values = array($date, $opposingTeamName, $location, $score, $opposingScore);

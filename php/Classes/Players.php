@@ -58,10 +58,10 @@ class Players
     public function insertPlayer($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status)
     {
         if(count($this->selectPlayers('', $familyName, $name, '', $birthDate)) > 0){
-            throw new Exception('duplicate detected : it seems that this player is already in our database');
+            throw new Exception('Duplicata détecté : Le joueur existe déjà');
         }
         if(count($this->selectPlayers($number)) > 0){
-            throw new Exception('duplicate detected : player number already exist');
+            throw new Exception('Duplicata détecté : numéro de licence déjà utilisé');
         }
         $mysql = DataBase::getInstance();
         $values = array($number, $familyName, $name, $photo, $birthDate, $size, $weight, $prefPos, $status);
